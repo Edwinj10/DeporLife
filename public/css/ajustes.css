@@ -1,0 +1,36 @@
+
+.panel-body { padding:0px; background-color: white;}
+.panel-body table tr td { padding-left: 15px }
+.panel-body .table {margin-bottom: 0px; }
+/*div.container#men {*/
+    /*background-color: #eee;*/
+/*}*/
+div#ti.panel.panel-default {
+    
+}
+h4.panel-title 
+{
+   /*background-color: red;*/
+}
+div.col-sm-3.col-md-3 {
+    padding-top: 40px;
+    margin-bottom: 50px;
+}
+
+a#colo {
+    color: black;
+    font-size: 18px;
+}
+a#colos {
+    color: black;
+    font-size: 22px;
+}
+a#colo:hover {
+    color: black;
+    font-size: 20px;
+}
+a#colos:hover {
+    color: white;
+    background-color: black;
+    font-size: 22px;
+}

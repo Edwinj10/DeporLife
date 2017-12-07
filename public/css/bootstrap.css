@@ -1,0 +1,87 @@
+.dropdown {
+  position: relative;
+}
+.dropdown-toggle:focus {
+  outline: 0;
+}
+/*color de los li*/
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  visibility: visible;
+  padding: 5px 0;   
+  margin: 2px 0 0;
+  display: none;
+  list-style: none;
+  font-size: 14px;     
+  /*background-color: brown;*/
+  border-radius: 0 0 0 4px;
+  background-clip: padding-box;  
+}
+.dropdown-menu .dropdown-menu {    
+  min-width: 160px;
+  padding: 0;
+  display: none;
+  margin: 2px 0 0 40px;
+  list-style: none;
+  font-size: 14px;
+  opacity: 0;
+  background-color: white;
+  border-radius: 0 0 0 4px;
+  background-clip: padding-box;  
+}
+@media (min-width: 768px) {
+  .dropdown-menu {    
+    top: 200%;
+    left: 0;    
+    visibility: hidden;
+    float: left;
+    display: block;
+    min-width: 160px;
+    padding: 5px 0;    
+    opacity: 0;
+  }
+  .dropdown-menu:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 30%;
+    border-style: solid;
+    border-width: 10px;
+    border-color: transparent transparent white transparent;
+  }  
+  .dropdown-menu .dropdown-menu {    
+    top: -3px;
+    left: 120%;
+    display: block;
+    float: left;
+    z-index: 1000;
+    margin: 2px 0 0;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .dropdown-menu .dropdown-menu:before{
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: -20px;
+    border-style: solid;
+    border-width: 10px;
+    border-color: transparent #0e6e8c transparent transparent;
+  }
+
+  /*este es*/
+  .dropdown:hover > .dropdown-menu {
+    opacity: 1 ;
+    top: 100% ;    
+    visibility: visible ;
+  }
+  .dropdown-menu .dropdown:hover > .dropdown-menu {
+    opacity: 1;  
+    top: -3px;
+    left: 100%;
+    padding: 5px 0;
+    visibility: visible;
+  }
