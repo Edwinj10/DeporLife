@@ -55,6 +55,32 @@ class FrontController extends Controller
         ->orderBy('publicacions.id', 'desc')
         ->paginate(4);  
         
+        $beisbol=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto')
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->join('users', 'publicacions.user_id', '=', 'users.id')
+        // ->where('publicacions.tipo', '=', 'Internacional')
+        ->where('categorias.categoria', '=', 'Beisbol')
+        ->orderBy('publicacions.id', 'desc')
+        ->paginate(2); 
+
+        $max= DB::table('publicacions')->max('id');
+        $m=$max-1;
+
+        // $maximo=DB::table('boletins as b')
+        //     ->select('b.*')
+        //     ->where('b.id','=', $m)
+        //     ->paginate(1);
+        // procedimiento de la tabla de index
+
+        $beisbol2=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto')
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->join('users', 'publicacions.user_id', '=', 'users.id')
+        ->where('publicacions.id', '!=', $max)
+        ->where('publicacions.id', '!=', $m)
+        ->where('categorias.categoria', '=', 'Beisbol')
+        ->orderBy('publicacions.id', 'desc')
+        ->paginate(6);  
+
         $imagenes = Imagene::paginate(4);
 
         if ($request) 
@@ -80,7 +106,7 @@ class FrontController extends Controller
 
         }
         
-        return view('/index', ['portadas' => $portadas, 'inter' => $inter, 'nacional' => $nacional, 'latest' => $latest,'top' => $top, 'imagenes' => $imagenes, 'publicaciones' => $publicaciones, "searchText"=>$query]);
+        return view('/index', ['portadas' => $portadas, 'inter' => $inter, 'nacional' => $nacional, 'latest' => $latest,'top' => $top, 'imagenes' => $imagenes, 'publicaciones' => $publicaciones, 'beisbol'=> $beisbol, 'beisbol2'=> $beisbol2, "searchText"=>$query]);
 
 
     }

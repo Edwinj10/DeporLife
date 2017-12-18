@@ -104,7 +104,7 @@ class PublicacionesController extends Controller
         {
             $foto= $request->file('foto');
             $filename= time(). '.'. $foto->getClientOriginalExtension();
-            Image::make($foto)->resize(960,450)->save(public_path('/imagenes/publicaciones/'.$filename));
+            Image::make($foto)->resize(970,580)->save(public_path('/imagenes/publicaciones/'.$filename));
             $publicacion->foto=$filename;
         }   
 
@@ -202,7 +202,9 @@ class PublicacionesController extends Controller
     public function update(PublicacionesRequest $request, $id)
     {
         $publicacion= Publicacion::findOrFail($id);
-        
+        // $fotos =public_path('imagenes/publicaciones').'/'.$publicacion->foto;
+        // unlink($fotos);
+    
         $publicacion->titulo=$request->get('titulo');
         $publicacion->descripcion=$request->get('descripcion');
         $publicacion->resumen=$request->get('resumen');
@@ -214,7 +216,7 @@ class PublicacionesController extends Controller
         {
             $foto= $request->file('foto');
             $filename= time(). '.'. $foto->getClientOriginalExtension();
-            Image::make($foto)->resize(960,450)->save(public_path('/imagenes/publicaciones/'.$filename));
+            Image::make($foto)->resize(970,580)->save(public_path('/imagenes/publicaciones/'.$filename));
             $publicacion->foto=$filename;
         }   
         $publicacion->update(); 

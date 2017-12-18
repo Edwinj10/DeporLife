@@ -23,7 +23,7 @@
 		<div class="col-lg-6 col-sm-6 col-m-6 col-xs-12">
 				<div class="form-group">
 					<label for="titulo">Resumen</label>
-					<input type="text" name="resumen" maxlength="80" required value="{{$publicacion->resumen}}" class="form-control" placeholder="Ingrese el Titulo">
+					<input type="text" name="resumen" maxlength="100" required value="{{$publicacion->resumen}}" class="form-control" placeholder="Ingrese el Titulo">
 				</div>
 				
 		</div>
