@@ -11,6 +11,16 @@
 }
 h
 */
+/*etiquetas a*/
+a:focus, a:hover {
+  color: #014c8c;
+  text-decoration: underline;
+}
+.title-large a :hover, .title-small a:hover, .title-x-small a:hover {
+
+  color: blue;
+}
+
 /*elementos a del menu*/
 #contenido_principal {
   background-color: #eee;
@@ -249,7 +259,11 @@ body {
 
     .banner-sec{float: left; width: 100%; background: #EBEBEB}
     .card-block{padding:0 10px 10px;}
-    .card-text{margin: 0}
+    .card-text{margin: 0;
+      font-size: .9rem;
+      color: #747373;
+      text-align: justify;
+    }
   .text-time{color: #ff0000; /*font-weight: 600;*/}
   small#sma.text-time {
     color: #ff0000;
@@ -465,179 +479,9 @@ body {
     border-radius: .25rem;
     color: white;
   }
-  /*slider con javascrip*/
-  #flexiselDemo1, #flexiselDemo2, #flexiselDemo3 {
-    display: none;
-  }
-  .nbs-flexisel-container {
-    position: relative;
-    max-width: 100%;
-  }
-  .nbs-flexisel-ul {
-    position: relative;
-    width: 9999px;
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    text-align: center;
-  }
-  .nbs-flexisel-inner {
-    overflow: hidden;
-  }
-  .nbs-flexisel-item {
-    float: left;
-    margin: 0px;
-    padding: 0px;
-    cursor: pointer;
-    position: relative;
-    line-height: 0px;
-  }
-  .nbs-flexisel-item > img {
+  
 
-    cursor: pointer;
-    position: relative;
-    width: 300px;
-    height: 300px;
-    margin: 2 0%;
-  }
-  /*** Navigation ***/
-  .nbs-flexisel-nav-left {
-    display:none;
-  }
-  .nbs-flexisel-nav-right {
-    display:none;
-  } 
-  .review-slider {
-    background: black;
-    padding: 1em 0;
-  }
-  /*fin slider*/
-
-
-  /*inicio comentarios*/
-
-
-  .widget-area.blank {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    -ms-box-shadow: none;
-    -o-box-shadow: none;
-    box-shadow: none;
-  }
-
-  .widget-area {
-    background-color: #fff;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-    -ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-    -o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-    float: left;
-    margin-top: 30px;
-    padding: 25px 30px;
-    position: relative;
-    width: 100%;
-  }
-  .status-upload {
-    background: none repeat scroll 0 0 #f5f5f5;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    float: left;
-    width: 100%;
-  }
-  .status-upload form {
-    float: left;
-    width: 100%;
-  }
-  .status-upload form textarea {
-    background: none repeat scroll 0 0 #fff;
-    border: medium none;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    -ms-border-radius: 4px 4px 0 0;
-    -o-border-radius: 4px 4px 0 0;
-    border-radius: 4px 4px 0 0;
-    color: #777777;
-    float: left;
-    font-family: Lato;
-    font-size: 14px;
-    height: 142px;
-    letter-spacing: 0.3px;
-    padding: 20px;
-    width: 100%;
-    resize:vertical;
-    outline:none;
-    border: 1px solid #F2F2F2;
-  }
-
-  .status-upload ul {
-    float: left;
-    list-style: none outside none;
-    margin: 0;
-    padding: 0 0 0 15px;
-    width: auto;
-  }
-  .status-upload ul > li {
-    float: left;
-  }
-  .status-upload ul > li > a {
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    color: #777777;
-    float: left;
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
-    margin: 10px 0 10px 10px;
-    text-align: center;
-    -webkit-transition: all 0.4s ease 0s;
-    -moz-transition: all 0.4s ease 0s;
-    -ms-transition: all 0.4s ease 0s;
-    -o-transition: all 0.4s ease 0s;
-    transition: all 0.4s ease 0s;
-    width: 30px;
-    cursor: pointer;
-  }
-  .status-upload ul > li > a:hover {
-    background: none repeat scroll 0 0 #606060;
-    color: #fff;
-  }
-  .status-upload form button {
-    border: medium none;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    color: #fff;
-    float: right;
-    font-family: Lato;
-    font-size: 14px;
-    letter-spacing: 0.3px;
-    margin-right: 9px;
-    margin-top: 9px;
-    padding: 6px 15px;
-  }
-  .dropdown > a > span.green:before {
-    border-left-color: #2dcb73;
-  }
-  .status-upload form button > i {
-    margin-right: 7px;
-  }
-
-
+  
   /*fin comentarios*/
 
 
@@ -776,7 +620,83 @@ body {
       padding-bottom: 0;
       /* margin-top: -15px; */
     }
-/*beisbol internacional section*/
-section#beisbol_internacional.section.magazine-section {
-  padding: 8px 0;
-}
+    /*beisbol internacional section*/
+    section#beisbol_internacional.section.magazine-section {
+      padding: 0px 0;
+    }
+    /*boxeo*/
+    section#Boxeo.section.magazine-section {
+      padding: 0px 0;
+    }
+    section#box {
+      padding: 0px 0;
+    }
+    /*imagen de comentarios publicaciones.show*/
+    .mdb-feed .news .label img {
+      /*width: 100%;
+      height: auto;*/
+      width: 50px;
+      height: 50px;
+    }
+
+    .news .excerpt .added-text {
+      margin-bottom: .6rem;
+      max-width: 450px;
+    }
+    .news .label {
+      display: block;
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+      width: 2.5rem;
+    }
+    .mdb-feed {
+      margin: 1rem 0;
+    }
+    .mdb-feed .news {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+    .mdb-feed .news .excerpt {
+      display: block;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+      word-wrap: break-word;
+      margin: 0 0 1.2rem 1.2rem;
+    }
+    .mdb-feed .news .excerpt .added-images img {
+      display: inline-block;
+      margin-right: .3rem;
+      width: 7rem;
+    }
+
+
+    .mdb-feed .news .excerpt .brief a {
+      color: #4285F4;
+    }
+    .mdb-feed .news .excerpt .brief .date {
+      display: inline-block;
+      float: none;
+      padding-left: .7rem;
+    }
+    .news .excerpt .feed-footer .like {
+      font-weight: 300;
+      color: #9e9e9e;
+      font-size: .86rem;
+    }
+    .rounded-circle {
+      border-radius: 50%!important;
+    }

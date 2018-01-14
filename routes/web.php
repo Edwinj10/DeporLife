@@ -12,7 +12,7 @@
 */
 
 Route::get('/','FrontController@index');
-Route::get('admin','FrontController@admin');
+Route::get('panel','FrontController@admin');
 Route::get('futbol','FrontController@futbol');
 Route::get('futbolnacional','FrontController@futbol_nacional');
 Route::get('futbolinternacional','FrontController@futbol_internacional');
@@ -27,6 +27,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('portadas', 'PortadaController');
 Route::resource('publicaciones', 'PublicacionesController');
+// 
+Route::get('noticias/{categoria}/{slug}', 'PublicacionesController@mostrar');
 Route::resource('usuarios', 'UsuarioController');
 Route::resource('fotos', 'ImagenesController');
 Route::resource('comentarios', 'ComentariosController');

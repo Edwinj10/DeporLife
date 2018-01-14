@@ -30,6 +30,7 @@ class PublicacionesRequest extends FormRequest
             'resumen' => 'required|max:100',
             'descripcion' => 'required',
             'foto'=> 'mimes:jpeg,bmp,png',
+            'slug' => 'max:100|unique:publicacions',
             
         ];
     }

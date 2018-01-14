@@ -53,7 +53,7 @@ class ComentariosController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -64,27 +64,33 @@ class ComentariosController extends Controller
      */
     public function store(Request $request)
     {
-        
-       
-        $comentarios= new Comentario;
-        $comentarios->comentario=$request->get('comentario');
-        // para capturar el id del usuario que esta logeado
-        $comentarios['user_id']=Auth::user()->id;
-        $fecha = Carbon::now();
-        $fecha = $fecha->format('d-m-Y');
-        $comentarios->fecha=$fecha;
-        $comentarios->estado='Espera';
-        $inputs=Input::all();
-        $vista=['publicacions_id'];
-        $comentarios->publicacions_id=$inputs['publicacions_id'];
-        $comentarios->save();
+
+
+        // $comentarios= new Comentario;
+        // $comentarios->comentario=$request->get('comentario');
+        // // para capturar el id del usuario que esta logeado
+        // $comentarios['user_id']=Auth::user()->id;
+        // $fecha = Carbon::now();
+        // $fecha = $fecha->format('d-m-Y');
+        // $comentarios->fecha=$fecha;
+        // $comentarios->estado='Espera';
+        // $inputs=Input::all();
+        // $vista=['publicacions_id'];
+        // $comentarios->publicacions_id=$inputs['publicacions_id'];
+        // $comentarios->save();
+        $this->validate($request, [
+
+            'comentario' => 'required'
+        ]);
+        Comentario::create($request->all());
+        return;
         
 
         // revisar esta linea de codigo
-    return back()->with('message' , 'Comentario Creado Correctamente, Se revisara y dentro de unos minutos se publicara Gracias');
-       
+        // return back()->with('message' , 'Comentario Creado Correctamente, Se revisara y dentro de unos minutos se publicara Gracias');
+
         
-       
+
     }
     /**
      * Display the specified resource.

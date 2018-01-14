@@ -1,47 +1,42 @@
-  @if(Session::has('message'))
-  <div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    {{Session::get('message')}}
-  </div>
-  @endif
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minium-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minium-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!--Bootstrap core CSS-->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
-    <link rel="stylesheet" type="text/css" href="css/responsive-style.css">
-    <link rel="stylesheet" type="text/css" href="css/weather-icons.min.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/lightbox.min.css">
-    <link rel="stylesheet" type="text/css" href="/fonts.css">
-    <!--    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
-    <link rel="stylesheet" type="text/css" href="css/loaders.css">
-    <link rel="stylesheet" type="text/css" href="css/mdb.css">
-    <link rel="stylesheet" type="text/css" href="css/mdb.min.css">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/deportlife.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/deportlife.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/deportlife.png">
-    <link rel="apple-touch-icon-precomposed" href="img/deportlife.png">
-    <link rel="shortcut icon" href="img/deportlife.png">
-    
-    <script src="js/arriba.js"></script>
-    <title>Deportes.com</title>
-    <script src="js/jquery.min.js"></script>
-  </head>
+  <!--Bootstrap core CSS-->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <link rel="stylesheet" type="text/css" href="css/responsive-style.css">
+  <link rel="stylesheet" type="text/css" href="css/weather-icons.min.css">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/lightbox.min.css">
+  <link rel="stylesheet" type="text/css" href="/fonts.css">
+  <!--    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/loaders.css">
+  <link rel="stylesheet" type="text/css" href="css/mdb.css">
+  <link rel="stylesheet" type="text/css" href="css/mdb.min.css">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/deportlife.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/deportlife.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/deportlife.png">
+  <link rel="apple-touch-icon-precomposed" href="img/deportlife.png">
+  <link rel="shortcut icon" href="img/deportlife.png">
 
-  <body>
-    <span class="ir-arriba icon-arrow-up2"></span>
-    
-    <header>
-      <div class="small-top">
+  <script src="js/arriba.js"></script>
+  <title>Deportes.com</title>
+  <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+  <span class="ir-arriba icon-arrow-up2"></span>
+  <br>  <br>  
+  <!-- <br>   -->
+  <header>
+      <!-- <div class="small-top">
         <div class="container">
           <div class="col-lg-4 date-sec hidden-sm-down">
             <div id="Date"></div>
@@ -50,7 +45,7 @@
             <div class="social-icon"> <a target="_blank" href="#" class=" fa fa-facebook"></a> <a target="_blank" href="#" class=" fa fa-twitter"></a> <a target="_blank" href="#" class=" fa fa-google-plus"></a> <a target="_blank" href="#" class=" fa fa-linkedin"></a> <a target="_blank" href="#" class=" fa fa-youtube"></a> <a target="_blank" href="#" class=" fa fa-vimeo-square"></a> </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="top-head left">
         <div class="container">
          <div class="row">
@@ -112,7 +107,7 @@
               <div class="card"> 
                 <a href="{{ route('portadas.show', $portada->id ) }}">
                   <div class="view hm-zoom">
-                    <img class="img-fluid" src="imagenes/portada/{{ $portada->foto }}" alt=""></a>  
+                    <img class="img-fluid" src="imagenes/portada/{{ $portada->foto }}" alt="{{$portada->titulo}}"></a>  
                   </div>  
                   <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$portada->categoria}}</span> </div>
                   <div class="card-block">
@@ -137,16 +132,16 @@
                 @foreach ($nacional as $nac)
                 <div class="col-lg-6">
                   <div class="card"> 
-                    <a href="{{ route('publicaciones.show', $nac->id ) }}">
+                    <a href="/noticias/{{$nac->categoria}}/{{$nac->slug}}">
                       <div class="view hm-zoom">
-                        <img class="img-fluid" src="imagenes/publicaciones/{{ $nac->foto }}" alt=""></a>  
+                        <img class="img-fluid" src="imagenes/publicaciones/{{ $nac->foto }}" alt="{{$nac->titulo}}"></a>  
                       </div>  
                       <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$nac->categoria}}</span> </div>
                       <div class="card-block">
                         <div class="news-title">
-                          <h2 class=" title-small"><a href="{{ route('publicaciones.show', $nac->id ) }}">{{substr(strip_tags($nac->titulo), 0,70)}}...</a></h2>
+                          <h2 class=" title-small"><a href="/noticias/{{$nac->categoria}}/{{$nac->slug}}">{{substr(strip_tags($nac->titulo), 0,70)}}...</a></h2>
                         </div>
-                        <p class="card-text">{{substr(strip_tags($nac->resumen), 0,100)}}...</p>
+                        <p class="card-text">{{substr(strip_tags($nac->resumen), 0,80)}}...</p>
                         <p class="card-text"><small class="text-time" id="sma"><em>{!!$nac->created_at->diffForHumans()!!} </em></small></p>
                       </div>
                     </div>
@@ -164,12 +159,12 @@
                 <div class="tab-content sidebar-tabing">
                   <div class="tab-pane active" id="home" role="tabpanel">
                     @foreach ($latest as $la)
-                    <div class="media"> <a class="media-left" href="{{ route('publicaciones.show', $la->id ) }}"> 
+                    <div class="media"> <a class="media-left" href="/noticias/{{$la->categoria}}/{{$la->slug}}"> 
 
-                      <img class="media-object" src="imagenes/publicaciones/{{ $la->foto }}" alt=""> </a>
+                      <img class="media-object" src="imagenes/publicaciones/{{ $la->foto }}" alt="{{$la->titulo}}"> </a>
                       <div class="media-body">
                         <div class="news-title">
-                          <h2 class="title-small"><a href="{{ route('publicaciones.show', $la->id ) }}">{{substr(strip_tags($la->titulo), 0,50)}}...</a></h2>
+                          <h2 class="title-small"><a href="/noticias/{{$la->categoria}}/{{$la->slug}}">{{substr(strip_tags($la->titulo), 0,50)}}...</a></h2>
                         </div>
                         <div class="news-auther"><span class="text-time" id="sma">{{ $la->created_at->diffForHumans() }}</span></div>
                       </div>
@@ -178,11 +173,11 @@
                   </div>
                   <div class="tab-pane" id="profile" role="tabpanel">
                     @foreach ($top as $to)
-                    <div class="media"> <a class="media-left" href="{{ route('publicaciones.show', $to->id ) }}"> 
-                      <img class="media-object" src="imagenes/publicaciones/{{ $to->foto }}" alt=""> </a>
+                    <div class="media"> <a class="media-left" href="/noticias/{{$to->categoria}}/{{$to->slug}}"> 
+                      <img class="media-object" src="imagenes/publicaciones/{{ $to->foto }}" alt="{{$to->titulo}}"> </a>
                       <div class="media-body">
                         <div class="news-title">
-                          <h2 class="title-small"><a href="{{ route('publicaciones.show', $to->id ) }}">{{substr(strip_tags($to->titulo), 0,50)}}...</h2></a>
+                          <h2 class="title-small"><a href="/noticias/{{$to->categoria}}/{{$to->slug}}">{{substr(strip_tags($to->titulo), 0,50)}}...</h2></a>
                         </div>
                         <div class="news-auther"><span class="text-time" id="sma">{{ $to->created_at->diffForHumans()}}</span></div>
                       </div>
@@ -209,20 +204,20 @@
               <div class="heading-large">Fútbol Internacional</div>
             </h3>
             <div class="row">
-              @foreach ($inter as $int)
+              @foreach ($futbolinter as $futinter)
               <div class="col-md-4">
                 <div class="card"> 
-                  <a href="{{ route('publicaciones.show', $int->id ) }}">
+                  <a href="/noticias/{{$futinter->categoria}}/{{$futinter->slug}}">
                     <div class="view hm-zoom">
-                      <img class="img-fluid" src="imagenes/publicaciones/{{ $int->foto }}" alt=""></a>
+                      <img class="img-fluid" src="imagenes/publicaciones/{{ $futinter->foto }}" alt="{{$futinter->titulo}}"></a>
                     </div>  
-
+                    <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$futinter->categoria}}</span> </div>
                     <div class="card-block">
                       <div class="news-title">
-                        <h2 class=" title-small"><a href="{{ route('publicaciones.show', $int->id ) }}">{{substr(strip_tags($int->titulo), 0,70)}}...</a></h2>
+                        <h2 class=" title-small"><a href="/noticias/{{$futinter->categoria}}/{{$futinter->slug}}">{{substr(strip_tags($futinter->titulo), 0,70)}}...</a></h2>
                       </div>
-                      <p class="card-text">{{substr(strip_tags($int->resumen), 0,100)}}...</p>
-                      <p class="card-text"><small class="text-time" id="sma"><em>{!!$int->created_at->diffForHumans()!!} </em></small></p>
+                      <p class="card-text">{{substr(strip_tags($futinter->resumen), 0,100)}}...</p>
+                      <p class="card-text"><small class="text-time" id="sma"><em>{!!$futinter->created_at->diffForHumans()!!} </em></small></p>
                     </div>
                   </div>
                   <!-- >diffForHumans() -->
@@ -241,72 +236,160 @@
               <section class="section magazine-section" id="beisbol_internacional">
                 <!--Grid row-->
                 <div class="row text-left">
-                  @foreach ($beisbol as $b)
+                  @foreach ($beisbolinter as $b)
                   <div class="col-lg-6 col-md-12">
 
                     <!--Featured news-->
                     <div class="single-news">
 
                       <!--Image-->
-                      <div class="view overlay hm-white-slight z-depth-1-half">
-                        <img src="imagenes/publicaciones/{{ $b->foto }}" class="img-fluid" alt="Sample post image">
-                        <a>
+                      
+                      <div class="view hm-zoom">
+
+                        <img src="imagenes/publicaciones/{{ $b->foto }}" class="img-fluid" alt="{{$b->titulo}}">
+                        
+                        <a href="/noticias/{{$b->categoria}}/{{$b->slug}}">
                           <div class="mask"></div>
+                          <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$b->categoria}}</span> </div>                          
                         </a>
                       </div>
 
                       <!--Excerpt-->
                       <div class="news-data">
+                        <!-- <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$b->categoria}}</span> </div> -->
 
-                        <p><strong><i class="fa fa-clock-o"></i>{!!$b->created_at->diffForHumans()!!}</strong></p>
+                        <!-- <p><strong></p> -->
+                          <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>{!!$b->created_at->diffForHumans()!!} </em></small></p>
+                        </div>
+                        <br>
+                        <h2 class=" title-small"><a href="/noticias/{{$b->categoria}}/{{$b->slug}}">{{substr(strip_tags($b->titulo), 0,65)}}...</a></h2>
+                        <p class="card-text">{{substr(strip_tags($b->resumen), 0,100)}}...</p>
+
                       </div>
-                      <h2 class=" title-small"><a href="{{ route('publicaciones.show', $b->id ) }}">{{substr(strip_tags($b->titulo), 0,70)}}...</a></h2>
-                      <p class="card-text">{{substr(strip_tags($b->resumen), 0,100)}}...</p>
+                    </div>
+                    @endforeach
+
+                  </div>
+                  <div class="col-md-12">
+                    @foreach ($beisbolinter2 as $b2)
+                    <div class="col-md-12 col-lg-6">
+
+                      <div class="single-news">
+
+                        <div class="row">
+
+                          <div class="col-md-3 col-xs-6">
+
+                            <!--Image-->
+                            <div class="view hm-zoom">
+                              <img src="imagenes/publicaciones/{{ $b2->foto }}" class="img-fluid" alt="{{$b2->titulo}}">
+                              <a href="/noticias/{{$b2->categoria}}/{{$b2->slug}}">
+                                <div class="mask"></div>
+                              </a>
+                            </div>
+                          </div>
+
+                          <!--Excerpt-->
+                          <div class="col-md-9 col-xs-6">
+                            <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>{!!$b2->created_at->diffForHumans()!!} </em></small></p>
+                           <h2 class=" title-small"><a href="/noticias/{{$b2->categoria}}/{{$b2->slug}}">{{substr(strip_tags($b2->titulo), 0,70)}}...
+                            <i class="fa fa-angle-right"></i></a></h2>
+                          </div>
+
+                        </div>
+
+                      </div>
 
                     </div>
+                    @endforeach
                   </div>
-                  @endforeach
+                </section>
+                <!--/Section: Magazine v.1-->
+              </div>
+            </section>
+          </div>
+        </section>
+        <section class="section-02" id="box">
+          <div class="container">
+            <h3>
+              <div class="heading-large">Boxeo</div>
+            </h3>
+            <!--Section: Magazine v.2-->
+            <section class="section magazine-section" id="Boxeo">
+              <!--Grid row-->
+              <div class="row text-left">
+
+                <!--Grid column-->
+                @foreach ($boxeo as $box)
+                <div class="col-lg-6 col-md-12">
+
+                  <!--Featured news-->
+                  <div class="single-news">
+
+                    <!--Image-->
+                    <div class="view hm-zoom">
+                      <img src="imagenes/publicaciones/{{ $box->foto }}" class="img-fluid" alt="{{$box->titulo}}">
+                      <a href="/noticias/{{$box->categoria}}/{{$box->slug}}">
+                        <div class="mask"></div>
+                        <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$box->categoria}}</span> </div>
+                      </a>
+                    </div>
+
+                    <!--Excerpt-->
+                    <div class="news-data">
+                      <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>{!!$box->created_at->diffForHumans()!!} </em></small></p>
+                    </div>
+
+                    <h2 class=" title-small"><a href="/noticias/{{$box->categoria}}/{{$box->slug}}">{{substr(strip_tags($box->titulo), 0,65)}}...</a></h2>
+                    <p class="card-text">{{substr(strip_tags($box->resumen), 0,150)}}...</p>
+                  </div>
+                  <!--/Featured news-->
 
                 </div>
-                <div class="col-md-12">
-                  @foreach ($beisbol2 as $b2)
-                  <div class="col-md-6">
+                @endforeach
+                <!--Grid column-->
 
+                <!--Grid column-->
+                <div class="col-lg-6 col-md-12">
+
+                  <div class="col-md-12 col-xs-12">
+                    @foreach ($boxeo2 as $box2)
+                    <!--Small news-->
                     <div class="single-news">
 
                       <div class="row">
-
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-xs-6">
 
                           <!--Image-->
-                          <div class="view overlay hm-white-slight z-depth-1-half">
-                            <img src="imagenes/publicaciones/{{ $b2->foto }}" class="img-fluid" alt="Minor sample post image">
-                            <a>
+                          <div class="view hm-zoom">
+                            <img src="imagenes/publicaciones/{{ $box2->foto }}" class="img-fluid" alt="{{$box2->titulo}}" class="img-fluid" alt="{{$box2->titulo}}">
+                            <a href="/noticias/{{$box2->categoria}}/{{$box2->slug}}">
                               <div class="mask"></div>
                             </a>
                           </div>
                         </div>
 
                         <!--Excerpt-->
-                        <div class="col-md-9">
-                          <p><strong><i class="fa fa-clock-o"></i>{!!$b2->created_at->diffForHumans()!!}</strong></p>
-                          <a>{{substr(strip_tags($b2->titulo), 0,50)}}... 
-                            <i class="fa fa-angle-right"></i>
-                          </a>
+                        <div class="col-md-9 col-xs-6">
+                         <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>{!!$box2->created_at->diffForHumans()!!} </em></small></p>
+                         <h2 class=" title-small"><a href="/noticias/{{$box2->categoria}}/{{$box2->slug}}">{{substr(strip_tags($box2->titulo), 0,70)}}...
+                          <i class="fa fa-angle-right"></i></a></h2>
                         </div>
 
                       </div>
-
                     </div>
-
+                    @endforeach
                   </div>
-                  @endforeach
-                </div>
-              </section>
-              <!--/Section: Magazine v.1-->
-            </div>
-          </section>
 
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+            </section>
+            <!--Section: Magazine v.2-->
+          </div>
         </section>
         <section class="section-02">
           <div class="container">
@@ -487,5 +570,7 @@
         <script type="text/javascript" src="js/mdb.js"></script>
         <script type="text/javascript" src="js/mdb.min.js"></script>
         {!!Html::script('js/core.js')!!} 
+
       </body>
+
       </html>

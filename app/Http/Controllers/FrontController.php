@@ -29,33 +29,58 @@ class FrontController extends Controller
 
     public function index(Request $request)
     {
-        $publicaciones = Publicacion::all();
 
-        $latest=Publicacion::orderBy('id', 'desc')->paginate(3);;;
-        // $latest=DB::table('publicacions as pu')
-        // ->select('pu.*')
-        // ->orderBy('pu.id', 'desc')
-        // ->paginate(3);
-        $top=Publicacion::orderBy('total_visitas', 'desc')->orderBy('total_visitas', 'desc')->paginate(3);;;;
-        // $top=DB::table('publicacions as pu')
-        // ->select('pu.*')
-        // ->orderBy('pu.id', 'asc')
-        // ->paginate(3);
-        // $publica = Publicacion::paginate(6);
-
+        $latest=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.resumen', 'publicacions.foto', 'publicacions.created_at', 'categorias.categoria', 'publicacions.slug')
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->orderBy('publicacions.id', 'desc')
+        ->paginate(3);;;
         
+        $top=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.resumen',
+            'publicacions.foto', 'publicacions.created_at', 'categorias.categoria', 'publicacions.total_visitas', 'publicacions.slug')
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->orderBy('publicacions.total_visitas', 'desc')
+        // ->orderBy('publicacions.total_visitas', 'desc')
+        ->paginate(3);;;;
+        
+        $futbolinter=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto','publicacions.slug' )
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->join('users', 'publicacions.user_id', '=', 'users.id')
+        ->where('publicacions.tipo', '=', 'Internacional')
+        ->where('categorias.categoria', '=', 'Futbol')
+        ->orderBy('publicacions.id', 'desc')
+        ->paginate(6);
 
-
-        // $nacional=Publicacion::orderBy('id', 'desc')->where('tipo', '=','Nacional')->paginate(4);;;
-        $inter=Publicacion::orderBy('id', 'desc')->where('tipo', '=','Internacional')->paginate(6);;;
-        $nacional=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto')
+        $nacional=Publicacion::select('publicacions.id', 'publicacions.slug','publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto', 'publicacions.slug')
         ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
         ->join('users', 'publicacions.user_id', '=', 'users.id')
         ->where('publicacions.tipo', '=', 'Nacional')
         ->orderBy('publicacions.id', 'desc')
         ->paginate(4);  
+
+        $boxeo=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto', 'publicacions.slug')
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->join('users', 'publicacions.user_id', '=', 'users.id')
+        // ->where('publicacions.tipo', '=', 'Internacional')
+        ->where('categorias.categoria', '=', 'Boxeo')
+        ->orderBy('publicacions.id', 'desc')
+        ->paginate(1); 
+
+        $maxbox=DB::table('publicacions as p')
+        ->join('categorias as c', 'p.categoria_id', '=', 'c.id')
+        ->select('c.categoria', 'p.tipo')
+        ->where('c.categoria', '=', 'Boxeo')
+        ->max('p.id');
+
+        $boxeo2=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto', 'publicacions.slug')
+        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
+        ->join('users', 'publicacions.user_id', '=', 'users.id')
+        // ->where('publicacions.tipo', '=', 'Internacional')
+        ->where('categorias.categoria', '=', 'Boxeo')
+        ->where('publicacions.id', '!=', $maxbox)
+        ->orderBy('publicacions.id', 'desc')
+        ->paginate(4); 
         
-        $beisbol=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto')
+        $beisbolinter=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto', 'publicacions.slug')
         ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
         ->join('users', 'publicacions.user_id', '=', 'users.id')
         // ->where('publicacions.tipo', '=', 'Internacional')
@@ -63,7 +88,13 @@ class FrontController extends Controller
         ->orderBy('publicacions.id', 'desc')
         ->paginate(2); 
 
-        $max= DB::table('publicacions')->max('id');
+        $max=DB::table('publicacions as p')
+        ->join('categorias as c', 'p.categoria_id', '=', 'c.id')
+        ->select('c.categoria', 'p.tipo')
+        ->where('c.categoria', '=', 'Beisbol')
+        ->where('p.tipo', '=', 'Internacional')
+        ->max('p.id');
+        
         $m=$max-1;
 
         // $maximo=DB::table('boletins as b')
@@ -72,12 +103,14 @@ class FrontController extends Controller
         //     ->paginate(1);
         // procedimiento de la tabla de index
 
-        $beisbol2=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.tipo', 'categorias.categoria', 'publicacions.foto')
+        $beisbolinter2=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.fecha', 'publicacions.resumen', 'publicacions.descripcion', 'publicacions.created_at', 'publicacions.importante','publicacions.tipo', 'categorias.categoria', 'publicacions.foto', 'publicacions.slug')
         ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
         ->join('users', 'publicacions.user_id', '=', 'users.id')
         ->where('publicacions.id', '!=', $max)
         ->where('publicacions.id', '!=', $m)
+        ->where('publicacions.importante', '=', 'No')
         ->where('categorias.categoria', '=', 'Beisbol')
+        ->where('publicacions.tipo', '=', 'Internacional')
         ->orderBy('publicacions.id', 'desc')
         ->paginate(6);  
 
@@ -106,7 +139,7 @@ class FrontController extends Controller
 
         }
         
-        return view('/index', ['portadas' => $portadas, 'inter' => $inter, 'nacional' => $nacional, 'latest' => $latest,'top' => $top, 'imagenes' => $imagenes, 'publicaciones' => $publicaciones, 'beisbol'=> $beisbol, 'beisbol2'=> $beisbol2, "searchText"=>$query]);
+        return view('/index', ['portadas' => $portadas, 'futbolinter' => $futbolinter, 'nacional' => $nacional, 'latest' => $latest,'top' => $top, 'imagenes' => $imagenes, 'beisbolinter2' => $beisbolinter2, 'beisbolinter'=> $beisbolinter , 'boxeo' => $boxeo, 'boxeo2' =>$boxeo2, "searchText"=>$query]);
 
 
     }
@@ -193,8 +226,8 @@ class FrontController extends Controller
     public function busqueda(Request $request)
 
     {
-       if ($request) 
-       {
+     if ($request) 
+     {
 
         $query=trim($request->get('searchText'));
         $publicaciones=DB::table('publicacions as p')
