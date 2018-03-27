@@ -12,10 +12,12 @@
   <link rel="stylesheet" href="/admin/css/font-awesome.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/admin/css/AdminLTE.min.css">
-  <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
      folder instead of downloading all of them to reduce the load. -->
      <link rel="stylesheet" href="/admin/css/_all-skins.min.css">
+    <!--  <link rel="stylesheet" type="text/css" href="/css/mdb.min.css">
+     <link rel="stylesheet" type="text/css" href="/css/mdb.css"> -->
+     <link rel="stylesheet" type="text/css" href="/css/estilo.css">
      <link rel="apple-touch-icon" href="../admin/img/apple-touch-icon.png">
      <link rel="shortcut icon" href="/admin/img/favicon.ico">
      <link rel="shortcut icon" type="img/CIIEMP.png" href="/favicon.ico">
@@ -268,10 +270,14 @@
 {!!Html::script('http://code.jquery.com/jquery-1.11.1.min.js')!!}
 <!-- Bootstrap 3.3.5 -->
 <script src="/admin/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-tags.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap-tags.css">
 <!-- AdminLTE App -->
-<script src="{{asset('js/bootstrap-select.min.js')}}"></script>
 <script src="/admin/js/app.min.js"></script>
 {!!Html::script('/admin/js/tabla.js')!!}
+<!-- <script type="text/javascript" src="/js/mdb.min.js"></script>
+<script type="text/javascript" src="/js/mdb.js"></script> -->
+
 @stack('scripts')
 
 </body>

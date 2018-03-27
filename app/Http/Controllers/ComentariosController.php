@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ComentariosRequest;
+use App\Http\Requests\ComentariosUpdateRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use App\Comentario;
+use App\Publicacion;
 use App\User;
 use Session;
 use DB;
 use Auth;
+use Cache;
+use Image;
 
 class ComentariosController extends Controller
 {
@@ -34,7 +39,7 @@ class ComentariosController extends Controller
             $query=trim($request->get('searchText'));
 
             $comentarios=DB::table('comentarios as c')
-            ->join('publicacions as p', 'c.publicacions_id', '=', 'p.id')
+            ->join('publicacios as p', 'c.publicacions_id', '=', 'p.id')
             ->join('users as u', 'c.user_id', '=', 'u.id')
             ->select('c.id', 'c.fecha', 'c.comentario',  'c.estado', 'u.name', 'p.titulo')
             ->where('c.comentario','LIKE', '%'.$query.'%')
@@ -45,6 +50,34 @@ class ComentariosController extends Controller
             return view('comentarios.index', ["comentarios"=>$comentarios, "searchText"=>$query]);
         }
     }
+    public function listall(Request $request, $categoria, $slug)
+    {
+
+     if ($request) 
+     {   
+
+        $query=trim($request->get('searchText'));
+        $publicacion = DB::table('publicacios as p')
+        ->join('users as u', 'p.user_id', '=', 'u.id')
+        ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
+        ->select('p.id','p.titulo', 'p.descripcion', 'p.foto', 'p.importante' , 'p.tipo', 'p.resumen', 'p.created_at', 'p.categoria_id', 'p.slug', 'c.categoria')
+        ->where('c.categoria', '=', $categoria)
+        ->where('p.slug', '=',$slug)
+
+            // para solo obtener el primer ingreso que quiero ver
+        ->first();    
+
+        $comentario=Comentario::select('comentarios.id as Id','comentarios.user_id as user_id', 'comentarios.comentario', 'comentarios.created_at', 'comentarios.estado', 'publicacios.titulo', 'users.name', 'users.foto', 'comentarios.publicacions_id')
+        ->join('publicacios', 'publicacios.id', '=' ,'comentarios.publicacions_id')
+        ->join('users', 'users.id', '=' ,'comentarios.user_id')
+        ->where('comentarios.publicacions_id', '=',$publicacion->id)
+        ->orderBy('comentarios.id', 'desc')
+        ->paginate(2);
+        
+
+    }
+    return view ('publicaciones.list', ['publicacion'=>$publicacion, 'comentario'=>$comentario]);
+}
 
     /**
      * Show the form for creating a new resource.
@@ -62,34 +95,22 @@ class ComentariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ComentariosRequest $request)
     {
-
-
-        // $comentarios= new Comentario;
-        // $comentarios->comentario=$request->get('comentario');
-        // // para capturar el id del usuario que esta logeado
-        // $comentarios['user_id']=Auth::user()->id;
-        // $fecha = Carbon::now();
-        // $fecha = $fecha->format('d-m-Y');
-        // $comentarios->fecha=$fecha;
-        // $comentarios->estado='Espera';
-        // $inputs=Input::all();
-        // $vista=['publicacions_id'];
-        // $comentarios->publicacions_id=$inputs['publicacions_id'];
-        // $comentarios->save();
-        $this->validate($request, [
-
-            'comentario' => 'required'
-        ]);
-        Comentario::create($request->all());
-        return;
-        
-
-        // revisar esta linea de codigo
-        // return back()->with('message' , 'Comentario Creado Correctamente, Se revisara y dentro de unos minutos se publicara Gracias');
-
-        
+        // ajax
+        if ($request->ajax()) 
+        {
+            $result = Comentario::create($request->all());
+            
+            if ($result) {
+                Session::flash('save', 'Se ha creado Correctamente');
+                return response()->json(['success' => 'true']);
+            }
+            else
+            {
+                return response()->json(['success' => 'false']);
+            }
+        } 
 
     }
     /**
@@ -100,7 +121,7 @@ class ComentariosController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -111,7 +132,8 @@ class ComentariosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comentario = Comentario::find($id);
+        return response()->json($comentario);
     }
 
     /**
@@ -121,15 +143,23 @@ class ComentariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ComentariosUpdateRequest $request, $id)
     {
-        $comentario= Comentario::findOrFail($id);
-        
-        $comentario->comentario=$request->get('comentario');
-        $comentario->update(); 
-        
-        return back()->with('message' , 'Comentario Modificado Correctamente');
+        if ($request->ajax())
+        {
+          $comentario = Comentario::findOrFail($id);
+          $input =  $request->all();
+          $result = $comentario->fill($input)->save();
 
+          if ($result) 
+          {
+              return response()->json(['success' => 'true']);
+          }
+          else 
+          {
+            return response()->json(['success' => 'false']);
+          }
+        }
     }
 
     /**
@@ -141,8 +171,14 @@ class ComentariosController extends Controller
     public function destroy($id)
     {
         $comentario=Comentario::findOrFail($id);
-        $comentario->estado='Aprobado';
-        $comentario->update();
-        return Redirect::to('/comentarios');
+        $result = $comentario->delete();
+        if ($result) 
+        {
+            return response()->json(['success' => 'true']);
+        }
+        else
+        {
+            return response()->json(['success'=>'false']);
+        }
     }
 }

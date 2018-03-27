@@ -67,8 +67,9 @@
                     <img src="{{asset('imagenes/publicaciones/'.$publicacion->foto)}}" alt="{{ $publicacion->titulo}}" height="100px" width="100px" class="img-thumbail">
                   </td>
                 </tr>
+                @include('publicaciones.modal-create')
                 @include('publicaciones.modal')
-                @include('publicaciones.modaledit')
+                
 
                 @endforeach
               </tbody>

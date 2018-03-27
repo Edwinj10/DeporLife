@@ -19,30 +19,7 @@
     <![endif]-->
 
     <!-- Custom styles for this template -->
-
-
-    {!!Html::style('css/bootstrap.min.css')!!}
-    {!!Html::style('css/custom.css')!!}
-    {!!Html::style('css/responsive-style.css')!!}
-    {!!Html::style('css/weather-icons.min.css')!!}
-    {!!Html::style('css/font-awesome.min.css')!!}
-    {!!Html::style('css/lightbox.min.css')!!}
-    {!!Html::style('/fonts.css')!!}
-    {!!Html::style('css/estilo.css')!!}
-    {!!Html::style('/css/bootstrap.css')!!}
-    {!!Html::style('css/loaders.css')!!}
-    <link rel="stylesheet" type="text/css" href="/css/mdb.css">
-    <link rel="stylesheet" type="text/css" href="/css/mdb.min.css">
-    {!!Html::style('css/ajustes.css')!!}
-    {!!Html::script('js/arriba.js')!!}
-    {!!Html::script('js/sistemalaravel.js')!!} 
-    {!!Html::script('js/jquery.min.js')!!}
-    <script src="/js/toastr.js"></script>
-    <script src="/js/vue.js"></script>
-    <script src="/js/axios.js"></script>
-    <script src="../js/main.js"></script>
-
-
+    @include('complementos.styles')
 
   </head>
 
@@ -146,15 +123,10 @@
 <!-- Bootstrap core JavaScript
   ================================================== --> 
   <!-- Placed at the end of the document so the pages load faster --> 
-
-  {!!Html::script('js/jquery.js')!!}
-  {!!Html::script('js/bootstrap.min.js')!!} 
-  {!!Html::script('js/core.js')!!} 
-  {!!Html::script('js/lightbox-plus-jquery.min.js')!!} 
-  <script type="text/javascript" src="/js/mdb.js"></script>
-  <script type="text/javascript" src="/js/mdb.min.js"></script>
-
+  
+  @include('complementos.scrips')
   @stack('scripts')
+  
 
 
 </body>

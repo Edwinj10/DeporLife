@@ -1,8 +1,8 @@
- @import url('https://fonts.googleapis.com/css?family=Kumar+One');
+/*@import url('https://fonts.googleapis.com/css?family=Kumar+One');
 @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
-.row-section{float:left; width:100%; background: #42275a;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #734b6d, #42275a);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to bottom, #734b6d, #42275a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.row-section{float:left; width:100%; background: #42275a;  
+background: -webkit-linear-gradient(to bottom, #734b6d, #42275a);  
+background: linear-gradient(to bottom, #734b6d, #42275a);
 }
 .row-section h2{float:left; width:100%; color:#fff; margin-bottom:30px; font-size: 14px;}
 .row-section h2 span{font-family: 'Kumar One', cursive; display:block; font-size:20px;}
@@ -17,4 +17,23 @@ background: linear-gradient(to bottom, #734b6d, #42275a); /* W3C, IE 10+/ Edge, 
 .row-section .media .media-body p{padding: 0 15px; font-size:14px;}
 .row-section .media .media-body h4 {color: #6b456a; font-size: 18px; font-weight: 600; margin-bottom: 0; padding-left: 14px; margin-top:12px;}
 .btn-default{background:#6B456A; color:#fff; border-radius:30px; border:none; font-size:16px;}
-h4#fecha {color: black; font-size: 14px; font-weight: 600;  padding-left: 14px; margin-top:12px;}
+h4#fecha {color: black; font-size: 14px; font-weight: 600;  padding-left: 14px; margin-top:12px;}*/
+
+
+.chip {
+    display: inline-block;
+    height: 32px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0,0,0,.6);
+    line-height: 32px;
+    padding: 0 12px;
+    border-radius: 16px;
+    background-color: #eceff1;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+#toast-container>div, .author-box, .badge, .btn, .card-wrapper .back, .card-wrapper .front, .card.card-cascade.wider .card-body, .card:not([class*=card-outline-]), .chip, .counter, .dropdown-content, .jumbotron, .md-pills .nav-link.active, .modal-dialog.cascading-modal .modal-c-tabs .nav-tabs, .modal-dialog.modal-notify .modal-header, .navbar, .pagination .active .page-link, .pricing-card .price .version, .section-blog-fw .view, .side-nav, .social-list, .z-depth-1 {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}

@@ -27,6 +27,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('portadas', 'PortadaController');
 Route::resource('publicaciones', 'PublicacionesController');
+Route::get('/listall/{categoria}/{slug}/{page?}', 'ComentariosController@listall');
 // 
 Route::get('noticias/{categoria}/{slug}', 'PublicacionesController@mostrar');
 Route::resource('usuarios', 'UsuarioController');
@@ -36,4 +37,4 @@ Route::resource('categoria', 'CategoriaController');
 Route::resource('ajustes', 'AjustesController');
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('auth.facebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
-Route::get('/{slug?}', 'FrontController@index');
+// Route::get('/{slug?}', 'FrontController@index');

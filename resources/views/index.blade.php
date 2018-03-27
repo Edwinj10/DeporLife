@@ -9,26 +9,11 @@
   <meta name="author" content="">
 
   <!--Bootstrap core CSS-->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/custom.css">
-  <link rel="stylesheet" type="text/css" href="css/responsive-style.css">
-  <link rel="stylesheet" type="text/css" href="css/weather-icons.min.css">
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="css/lightbox.min.css">
-  <link rel="stylesheet" type="text/css" href="/fonts.css">
-  <!--    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> -->
-  <link rel="stylesheet" type="text/css" href="css/loaders.css">
-  <link rel="stylesheet" type="text/css" href="css/mdb.css">
-  <link rel="stylesheet" type="text/css" href="css/mdb.min.css">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/deportlife.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/deportlife.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/deportlife.png">
-  <link rel="apple-touch-icon-precomposed" href="img/deportlife.png">
-  <link rel="shortcut icon" href="img/deportlife.png">
+  @include('complementos.styles')
 
-  <script src="js/arriba.js"></script>
+  
   <title>Deportes.com</title>
-  <script src="js/jquery.min.js"></script>
+  
 </head>
 
 <body>
@@ -51,12 +36,10 @@
       <div class="container">
        <div class="row">
         <div class="col-md-6 col-lg-4 col-xs-12">
-          <h1>DeporLife.com<small>El Mejor Espacio Para Informarte</small></h1>
+          <h1>DeporMania.com<small>El Mejor Espacio Para Informarte</small></h1>
         </div>
         @if (Auth::guest())
         <div class="col-md-6 col-lg-5 offset-lg-3 admin-bar hidden-sm-down">
-
-
           <nav class="nav nav-inline"> 
             <a href="" data-target="#modal-login" data-toggle="modal" class="nav-link">
               <button class="btn btn-danger">Iniciar Sesion</button></a>
@@ -76,6 +59,10 @@
                 <a class="nav-link dropdown-toggle" class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} </a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" class="nav-link" href="/ajustes" id="men">Ajustes</a>
+                  @if (Auth::user()->tipo == "Administrador")
+                  <a class="dropdown-item" class="nav-link" href="/panel" id="men">Administracion</a>
+                  @else       
+                  @endif 
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" class="nav-link" href="{{ route('logout') }}" id="men" onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">Salir</a>
@@ -100,15 +87,15 @@
   @include('complementos.menu')
   <section class="banner-sec">
     <div class="container">
+      <h2 class="widget-title">Lo Mejor del Deporte</h2>
       <div class="row">
-        <div class="col-md-12">
-          <h3 class="heading-large">Lo Mejor del Deporte</h3>
+        <div class="col-md-12"> 
           @foreach ($portadas as $portada)
           <div class="col-md-4">
             <div class="card"> 
               <a href="{{ route('portadas.show', $portada->id ) }}">
                 <div class="view hm-zoom">
-                  <img class="img-fluid" src="imagenes/portada/{{ $portada->foto }}" alt="{{$portada->titulo}}"></a>  
+                  <img class="img-fluid" src="imagenes/publicaciones/{{ $portada->foto }}" alt="{{$portada->titulo}}"></a>  
                 </div>  
                 <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$portada->categoria}}</span> </div>
                 <div class="card-block">
@@ -128,7 +115,8 @@
         <div class="container">
           <div class="row">
            <div class="col-lg-8 col-md-12">
-            <h3 class="heading-large">Deportes Nacionales</h3>
+            <!-- <h3 class="heading-large">Deportes Nacionales</h3> -->
+            <h2 class="widget-title">Deportes Nacionales</h2>
             <div class="row">
               @foreach ($nacional as $nac)
               <div class="col-lg-6">
@@ -187,7 +175,8 @@
                 </div>
               </div>
               <div class="video-sec">
-                <h4 class="heading-small">Videos</h4>
+                <!-- <h4 class="heading-small">Videos</h4> -->
+                <h2 class="widget-title">Videos</h2>
                 <div class="video-block">
                   <div class="embed-responsive embed-responsive-4by3">
                     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/KoHGpJFNYjg" allowfullscreen></iframe>
@@ -201,9 +190,7 @@
 
       <section class="banner-sec">
         <div class="container">
-          <h3>
-            <div class="heading-large">Fútbol Internacional</div>
-          </h3>
+          <h2 class="widget-title">Fútbol Internacional</h2>
           <div class="row">
             @foreach ($futbolinter as $futinter)
             <div class="col-md-4">
@@ -231,9 +218,8 @@
         </section>
         <section class="section-02">
           <div class="container">
-            <h3>
-              <div class="heading-large">Béisbol Internacional</div>
-            </h3>
+            <!--               <div class="heading-large">Béisbol Internacional</div> -->
+            <h2 class="widget-title">Béisbol Internacional</h2>
             <section class="section magazine-section" id="beisbol_internacional">
               <!--Grid row-->
               <div class="row text-left">
@@ -312,9 +298,7 @@
         </section>
         <section class="section-02" id="box">
           <div class="container">
-            <h3>
-              <div class="heading-large">Boxeo</div>
-            </h3>
+            <h2 class="widget-title">Boxeo</h2>
             <!--Section: Magazine v.2-->
             <section class="section magazine-section" id="Boxeo">
               <!--Grid row-->
@@ -564,14 +548,7 @@
 
           });
         </script>
-        <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-        <script type="text/javascript" src="js/jquery.js"></script> 
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/lightbox.js"></script>
-        <script type="text/javascript" src="js/mdb.js"></script>
-        <script type="text/javascript" src="js/mdb.min.js"></script>
-        {!!Html::script('js/core.js')!!} 
-
+        @include('complementos.scrips')
       </body>
 
       </html>

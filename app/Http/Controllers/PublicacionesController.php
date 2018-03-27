@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PublicacionesRequest;
-use App\Publicacion;
+use Illuminate\Support\Facades\Storage;
+use App\Publicacio;
 use App\Comentario;
 use Carbon\Carbon;
 use App\User;
@@ -41,16 +42,21 @@ class PublicacionesController extends Controller
 
         $query=trim($request->get('searchText'));
 
-        $publicaciones=DB::table('publicacions as p')
-        ->join('categorias as c', 'p.categoria_id', '=', 'c.id')
+        $publicaciones=DB::table('publicacios as p')
+        ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
         ->join('users as u', 'p.user_id', '=', 'u.id')
-        ->select('p.id', 'p.titulo',  'p.descripcion', 'p.foto','p.importante', 'p.resumen', 'p.tipo', 'p.fecha','c.categoria', 'u.name')
+        ->select('p.id', 'p.titulo',  'p.descripcion', 'p.foto','p.importante', 'p.resumen', 'p.tipo', 'c.categoria', 'u.name')
         ->where('p.titulo','LIKE', '%'.$query.'%')
         ->orwhere('p.descripcion','LIKE', '%'.$query.'%')
         ->orderBy('p.id', 'desc')
         ->paginate(7);
 
-        return view('publicaciones.index', ["publicaciones"=>$publicaciones, "searchText"=>$query]);
+        $categorias=DB::table('categoris as c')
+
+        ->select('c.*')
+        ->get();
+
+        return view('publicaciones.index', ["publicaciones"=>$publicaciones, 'categorias'=>$categorias, "searchText"=>$query]);
       }
 
 
@@ -65,12 +71,9 @@ class PublicacionesController extends Controller
     {
 
 
-      $categorias=DB::table('categorias as c')
 
-      ->select('c.*')
-      ->get();
 
-      return view ('publicaciones/create', ['categorias'=> $categorias]);
+      // return view ('publicaciones/create', ['categorias'=> $categorias]);
 
     }
 
@@ -83,7 +86,7 @@ class PublicacionesController extends Controller
     public function store(PublicacionesRequest $request)
     {
 
-      $publicacion= new Publicacion;
+      $publicacion= new Publicacio;
       $publicacion->titulo=$request->get('titulo');
         // slug
       $slug = str_slug($publicacion->titulo, "-");
@@ -96,12 +99,12 @@ class PublicacionesController extends Controller
         // para capturar el id del usuario que esta logeado
       $publicacion['user_id']=Auth::user()->id;
       $publicacion->categoria_id=$request->get('categoria');
-      $fecha = Carbon::now();
-      $fecha = $fecha->format('d-m-Y');
-      $publicacion->fecha=$fecha;
-      $hora = Carbon::now();
-      $hora->toTimeString();  
-      $publicacion->hora=$hora;
+      // $fecha = Carbon::now();
+      // $fecha = $fecha->format('d-m-Y');
+      // $publicacion->fecha=$fecha;
+      // $hora = Carbon::now();
+      // $hora->toTimeString();  
+      // $publicacion->hora=$hora;
 
       if($request->hasFile('foto'))
       {
@@ -112,6 +115,13 @@ class PublicacionesController extends Controller
       }   
         // return $publicacion;
       $publicacion->save();
+
+      // tags
+
+
+      // $publicacion->tags()->attach($request->get('tags'));
+
+      
 
 
       return redirect('/publicaciones')->with('message' , 'Publicacion Creada Correctamente');
@@ -132,51 +142,42 @@ class PublicacionesController extends Controller
       {   
 
         $query=trim($request->get('searchText'));
-        $publicacion = DB::table('publicacions as p')
+        $publicacion = DB::table('publicacios as p')
         ->join('users as u', 'p.user_id', '=', 'u.id')
-        ->join('categorias as c', 'p.categoria_id', '=', 'c.id')
-        ->select('p.id','p.titulo', 'p.descripcion', 'p.foto', 'p.importante' , 'p.tipo', 'p.resumen', 'p.fecha', 'p.created_at', 'p.categoria_id', 'p.slug', 'c.categoria')
+        ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
+        ->select('p.id','p.titulo', 'p.descripcion','p.user_id' ,'p.foto', 'p.importante' , 'p.tipo', 'p.resumen', 'p.created_at', 'p.categoria_id', 'p.slug', 'c.categoria')
         ->where('c.categoria', '=', $categoria)
         ->where('p.slug', '=',$slug)
 
             // para solo obtener el primer ingreso que quiero ver
         ->first();
 
-        $categorias=DB::table('categorias as c')
-        ->join('publicacions as p', 'p.categoria_id', '=', 'c.id')
+        $categorias=DB::table('categoris as c')
+        ->join('publicacios as p', 'p.categoria_id', '=', 'c.id')
         ->select('p.id','p.titulo', 'p.slug', 'p.descripcion', 'p.foto', 'p.importante' , 'p.tipo', 'c.categoria')
         ->where('p.id', '=',$publicacion->id)
         ->get();
 
         $users=DB::table('users as u')
-        ->join('publicacions as p', 'p.user_id', '=', 'u.id')
+        ->join('publicacios as p', 'p.user_id', '=', 'u.id')
         ->select('u.id', 'u.name')
         ->where('p.id', '=',$publicacion->id)
         ->get();
 
-        $sugerencias=DB::table('publicacions as p')
+        $sugerencias=DB::table('publicacios as p')
 
-        ->select('p.id','p.titulo', 'p.descripcion', 'p.foto', 'p.importante' , 'p.tipo', 'p.resumen', 'p.fecha', 'p.created_at', 'p..categoria_id', 'p.slug')
+        ->select('p.id','p.titulo', 'p.descripcion', 'p.foto', 'p.importante' , 'p.tipo', 'p.resumen', 'p.created_at', 'p..categoria_id', 'p.slug')
         ->where('p.tipo', '=', $publicacion->tipo)
         ->where('p.categoria_id', '=', $publicacion->categoria_id)
         ->where('p.id', '!=', $publicacion->id)
         ->paginate(4);
 
-        
-
-        $comentario=Comentario::select('comentarios.id', 'comentarios.comentario', 'comentarios.created_at', 'comentarios.estado', 'publicacions.titulo', 'users.name', 'users.foto', 'users.id', 'comentarios.publicacions_id')
-        ->join('publicacions', 'publicacions.id', '=' ,'comentarios.publicacions_id')
-        ->join('users', 'users.id', '=' ,'comentarios.user_id')
-        ->where('publicacions.id', '=',$publicacion->id)
-        ->orderBy('comentarios.id', 'desc')
-        ->paginate(10);
-
-        $latest=Publicacion::select('publicacions.id', 'publicacions.titulo', 'publicacions.resumen', 'publicacions.foto', 'publicacions.created_at', 'categorias.categoria', 'publicacions.slug')
-        ->join('categorias', 'publicacions.categoria_id', '=', 'categorias.id')
-        ->where('publicacions.id', '!=', $publicacion->id)
-        ->orderBy('publicacions.id', 'desc')
+        $latest=Publicacio::select('publicacios.id', 'publicacios.titulo', 'publicacios.resumen', 'publicacios.foto', 'publicacios.created_at', 'categoris.categoria', 'publicacios.slug')
+        ->join('categoris', 'publicacios.categoria_id', '=', 'categoris.id')
+        ->where('publicacios.id', '!=', $publicacion->id)
+        ->orderBy('publicacios.id', 'desc')
         ->paginate(6);;;
-        $variable = Publicacion::find($publicacion->id);
+        $variable = Publicacio::find($publicacion->id);
 
         if(Cache::has($publicacion->id)==false){
                 // Cache::add($id,'contador',0.30);
@@ -186,7 +187,7 @@ class PublicacionesController extends Controller
         }
 
       }
-      return view ('publicaciones.show', ['publicacion'=>$publicacion, 'variable'=>$variable, 'sugerencias'=>$sugerencias, 'comentario'=>$comentario, 'users'=>$users, 'categorias'=>$categorias, 'latest'=>$latest, "searchText"=>$query]);
+      return view ('publicaciones.show', ['publicacion'=>$publicacion, 'variable'=>$variable, 'sugerencias'=>$sugerencias, 'users'=>$users, 'categorias'=>$categorias, 'latest'=>$latest, "searchText"=>$query]);
 
 
     }
@@ -204,7 +205,7 @@ class PublicacionesController extends Controller
     public function edit($id)
     {
 
-      return view ('publicaciones.edit', ['publicacion'=>Publicacion::findOrFail($id)]);
+      return view ('publicaciones.edit', ['publicacion'=>Publicacio::findOrFail($id)]);
     }
 
     /**
@@ -216,7 +217,7 @@ class PublicacionesController extends Controller
      */
     public function update(PublicacionesRequest $request, $id)
     {
-      $publicacion= Publicacion::findOrFail($id);
+      $publicacion= Publicacio::findOrFail($id);
         // $fotos =public_path('imagenes/publicaciones').'/'.$publicacion->foto;
         // unlink($fotos);
 
@@ -250,7 +251,7 @@ class PublicacionesController extends Controller
      */
     public function destroy($id)
     {
-      $publicacion=DB::table('publicacions')->where('id', '=', $id)->delete();
+      $publicacion=DB::table('publicacios')->where('id', '=', $id)->delete();
       Session::flash ('message', 'Eliminado Correctamente');
       return redirect::to('/publicaciones');
     }

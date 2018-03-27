@@ -12,6 +12,7 @@ use App\User;
 use Session;
 use DB;
 use Auth;
+use Image;
 
 class PortadaController extends Controller
 {
@@ -35,7 +36,7 @@ class PortadaController extends Controller
 
             $portadas=DB::table('portadas as p')
             ->join('users as u', 'p.user_id', '=', 'u.id')
-            ->join('categorias as c', 'p.categoria_id', '=', 'c.id')
+            ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
             ->select('p.id', 'p.titulo', 'p.descripcion', 'p.foto','p.resumen','p.tipo','u.name', 'c.categoria')
             ->where('p.titulo','LIKE', '%'.$query.'%')
             ->orwhere('p.descripcion','LIKE', '%'.$query.'%')
@@ -55,7 +56,7 @@ class PortadaController extends Controller
      */
     public function create()
     {
-        $categorias=DB::table('categorias as c')
+        $categorias=DB::table('categoris as c')
         
         ->select('c.*')
         ->get();

@@ -16,6 +16,7 @@ class CreatePortadasTable extends Migration
         Schema::create('portadas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('categoria_id');
             $table->string('titulo');
             $table->string('descripcion');
             $table->string('foto');
