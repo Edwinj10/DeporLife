@@ -376,31 +376,31 @@
             <!--Section: Magazine v.2-->
           </div>
         </section>
-        <section class="section-02">
-          <div class="container">
+        <!-- <section class="section-02">
+          <div class="container"> -->
             <!--Carousel Wrapper-->
-            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+            <!-- <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel"> -->
 
               <!--Controls-->
-              <div class="controls-top">
+              <!-- <div class="controls-top">
                 <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
                 <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-              </div>
+              </div> -->
               <!--/.Controls-->
 
               <!--Indicators-->
-              <ol class="carousel-indicators">
+              <!-- <ol class="carousel-indicators">
                 <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
                 <li data-target="#multi-item-example" data-slide-to="1"></li>
                 <li data-target="#multi-item-example" data-slide-to="2"></li>
-              </ol>
+              </ol> -->
               <!--/.Indicators-->
 
               <!--Slides-->
-              <div class="carousel-inner" role="listbox">
+              <!-- <div class="carousel-inner" role="listbox"> -->
 
                 <!--First slide-->
-                <div class="carousel-item active">
+                <!-- <div class="carousel-item active">
 
                   <div class="col-md-4">
                     <div class="card">
@@ -435,11 +435,11 @@
                     </div>
                   </div>
 
-                </div>
+                </div> -->
                 <!--/.First slide-->
 
                 <!--Second slide-->
-                <div class="carousel-item">
+                <!-- <div class="carousel-item">
 
                   <div class="col-md-4">
                     <div class="card">
@@ -474,11 +474,11 @@
                     </div>
                   </div>
 
-                </div>
+                </div> -->
                 <!--/.Second slide-->
 
                 <!--Third slide-->
-                <div class="carousel-item">
+               <!--  <div class="carousel-item">
 
                   <div class="col-md-4">
                     <div class="card">
@@ -513,16 +513,16 @@
                     </div>
                   </div>
 
-                </div>
+                </div> -->
                 <!--/.Third slide-->
 
-              </div>
+              <!-- </div> -->
               <!--/.Slides-->
 
-            </div>
+           <!--  </div> -->
             <!--/.Carousel Wrapper-->
-          </div>
-        </section>
+          <!-- </div>
+        </section> -->
         <!--footer start from here-->
         <!-- footer -->
         @include('complementos.footer')
