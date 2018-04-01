@@ -12,7 +12,17 @@
           <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$publicacion->categoria}}</span> </div>
         </div>
         {!!$publicacion->descripcion!!}
+        <div class="responsive">
+          <div class="row">
+            <h6 id="temas">Temas relacionados:</h6>
+            @foreach($publicacion->etiquetas as $tag)
+            <button type="button" class="btn btn-danger btn-rounded">{{$tag->etiqueta}}</button>
+            @endforeach
+          </div>
+        </div>
       </div>
+      <br>
+
       <div class="col-md-4">
         <h2 class="widget-title">Últimas Noticias</h2>
         <div class="col-md-12 col-xs-12">
@@ -35,7 +45,7 @@
               <!--Excerpt-->
               <div class="col-md-6 col-xs-6">
                 <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>{!!$last->created_at->diffForHumans()!!} </em></small></p>
-                <h2 class=" title-small"><a href="/noticias/{{$last->categoria}}/{{$last->slug}}">{{substr(strip_tags($last->titulo), 0,70)}}...
+                <h2 class=" title-small"><a href="/noticias/{{$last->categoria}}/{{$last->slug}}">{{substr(strip_tags($last->titulo), 0,40)}}..
                   <i class="fa fa-angle-right"></i></a></h2>
                 </div>
 
@@ -68,46 +78,46 @@
 
       <p>
         @if (Auth::guest())
-       <a href="" data-target="#modal-login" data-toggle="modal" class="nav-link">
-        <button class="btn btn-danger">Iniciar Sesion</button></a>
-        @else
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-          Comentar
-        </a>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-          Ver Comentarios
-        </button>
-        @endif
-      </p>
-      <div class="collapse" id="collapseExample1">
-        <!-- Form subscription -->
-        <div class="col-md-5">
-          <!-- <div class="heading-large">Agregar comentario</div> -->
-          {!! Form::open(['id' => 'form']) !!}
-          
-          <div class="md-form">
-            <!--   <i class="fa fa-pencil prefix"></i> -->
-            <textarea type="text"  class="md-textarea" id="comentario"></textarea>
-            
-            <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
-            <input type="hidden" name="publicacions_id" id="publicacions_id" value="{{$publicacion->id}}">
-            <input type="hidden" name="estado" id="estado" value="Espera">
-            <label for="form8">Agregar comentario</label>
+        <a href="" data-target="#modal-login" data-toggle="modal" class="nav-link">
+          <button class="btn btn-danger">Iniciar Sesion</button></a>
+          @else
+          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+            Comentar
+          </a>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+            Ver Comentarios
+          </button>
+          @endif
+        </p>
+        <div class="collapse" id="collapseExample1">
+          <!-- Form subscription -->
+          <div class="col-md-5">
+            <!-- <div class="heading-large">Agregar comentario</div> -->
+            {!! Form::open(['id' => 'form']) !!}
+
+            <div class="md-form">
+              <!--   <i class="fa fa-pencil prefix"></i> -->
+              <textarea type="text"  class="md-textarea" id="comentario"></textarea>
+
+              <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
+              <input type="hidden" name="publicacions_id" id="publicacions_id" value="{{$publicacion->id}}">
+              <input type="hidden" name="estado" id="estado" value="Espera">
+              <label for="form8">Agregar comentario</label>
+            </div>
+            {!!link_to('##', 'Grabar', ['id' => 'Grabar', 'class' => 'btn btn-primary'])!!}
+
+            {!!Form::close()!!}
           </div>
-          {!!link_to('##', 'Grabar', ['id' => 'Grabar', 'class' => 'btn btn-primary'])!!}
-
-          {!!Form::close()!!}
+          <!-- Form subscription -->
         </div>
-        <!-- Form subscription -->
-      </div>
-      <div class="collapse" id="collapseExample2" id="listar-comentarios">
-        <div class="row" id="listar-comentarios">
+        <div class="collapse" id="collapseExample2" id="listar-comentarios">
+          <div class="row" id="listar-comentarios">
 
+          </div>
         </div>
-      </div>
-      @include('comentarios.editar')
-    </section>
-  </div>
+        @include('comentarios.editar')
+      </section>
+    </div>
 
   <!-- <section class="video-gallery-sec">
     <div class="container">

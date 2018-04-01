@@ -24,4 +24,9 @@ class Publicacio extends Model
 	{
 		return $this->created_at->format('M d Y');
 	}
+
+	public function etiquetas()
+	{
+		return $this->belongsToMany(Etiqueta::class);
+	}
 }

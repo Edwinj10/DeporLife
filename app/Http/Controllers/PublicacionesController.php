@@ -9,6 +9,7 @@ use App\Http\Requests\PublicacionesRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Publicacio;
 use App\Comentario;
+use App\Etiqueta;
 use Carbon\Carbon;
 use App\User;
 use Session;
@@ -56,9 +57,11 @@ class PublicacionesController extends Controller
         ->select('c.*')
         ->get();
 
-        return view('publicaciones.index', ["publicaciones"=>$publicaciones, 'categorias'=>$categorias, "searchText"=>$query]);
-      }
+        
+        $tags = Etiqueta::orderBy('id', 'DESC')->paginate(50);
 
+        return view('publicaciones.index', ["publicaciones"=>$publicaciones, 'categorias'=>$categorias, "searchText"=>$query, 'tags'=>$tags]);
+      }
 
     }
 
@@ -85,20 +88,26 @@ class PublicacionesController extends Controller
      */
     public function store(PublicacionesRequest $request)
     {
-
-      $publicacion= new Publicacio;
-      $publicacion->titulo=$request->get('titulo');
+      if($request->hasFile('foto'))
+      {
+        $publicacion= new Publicacio;
+        $foto= $request->file('foto');
+        $filename= time(). '.'. $foto->getClientOriginalExtension();
+        Image::make($foto)->resize(970,580)->save(public_path('/imagenes/publicaciones/'.$filename));
+        
+        $publicacion->titulo=$request->get('titulo');
         // slug
-      $slug = str_slug($publicacion->titulo, "-");
-      $publicacion->slug=$slug;
-      $publicacion->descripcion=$request->get('descripcion');
-      $publicacion->resumen=$request->get('resumen');
-      $publicacion->importante=$request->get('importante');
-      $publicacion->tipo=$request->get('tipo');
-      $publicacion->total_visitas='0';
+        $slug = str_slug($publicacion->titulo, "-");
+        $publicacion->slug=$slug;
+        $publicacion->descripcion=$request->get('descripcion');
+        $publicacion->resumen=$request->get('resumen');
+        $publicacion->importante=$request->get('importante');
+        $publicacion->tipo=$request->get('tipo');
+        $publicacion->total_visitas='0';
+        $publicacion->foto=$filename;
         // para capturar el id del usuario que esta logeado
-      $publicacion['user_id']=Auth::user()->id;
-      $publicacion->categoria_id=$request->get('categoria');
+        $publicacion['user_id']=Auth::user()->id;
+        $publicacion->categoria_id=$request->get('categoria');
       // $fecha = Carbon::now();
       // $fecha = $fecha->format('d-m-Y');
       // $publicacion->fecha=$fecha;
@@ -106,27 +115,14 @@ class PublicacionesController extends Controller
       // $hora->toTimeString();  
       // $publicacion->hora=$hora;
 
-      if($request->hasFile('foto'))
-      {
-        $foto= $request->file('foto');
-        $filename= time(). '.'. $foto->getClientOriginalExtension();
-        Image::make($foto)->resize(970,580)->save(public_path('/imagenes/publicaciones/'.$filename));
-        $publicacion->foto=$filename;
-      }   
+        $publicacion->save();
+
+        $publicacion->etiquetas()->attach($request->get('tags'));
         // return $publicacion;
-      $publicacion->save();
+        
 
-      // tags
-
-
-      // $publicacion->tags()->attach($request->get('tags'));
-
-      
-
-
-      return redirect('/publicaciones')->with('message' , 'Publicacion Creada Correctamente');
-        // para saber que usuario esta logeado
-        // return $request-> user();
+        return redirect('/publicaciones')->with('message' , 'Publicacion Creada Correctamente');
+      }
     }
 
 
@@ -142,14 +138,11 @@ class PublicacionesController extends Controller
       {   
 
         $query=trim($request->get('searchText'));
-        $publicacion = DB::table('publicacios as p')
-        ->join('users as u', 'p.user_id', '=', 'u.id')
-        ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
-        ->select('p.id','p.titulo', 'p.descripcion','p.user_id' ,'p.foto', 'p.importante' , 'p.tipo', 'p.resumen', 'p.created_at', 'p.categoria_id', 'p.slug', 'c.categoria')
-        ->where('c.categoria', '=', $categoria)
-        ->where('p.slug', '=',$slug)
-
-            // para solo obtener el primer ingreso que quiero ver
+        $publicacion=Publicacio::select('publicacios.id', 'publicacios.titulo', 'publicacios.resumen', 'publicacios.descripcion', 'publicacios.created_at', 'publicacios.tipo', 'categoris.categoria', 'publicacios.foto','publicacios.slug' )
+        ->join('categoris', 'publicacios.categoria_id', '=', 'categoris.id')
+        ->join('users', 'publicacios.user_id', '=', 'users.id')
+        ->where('categoris.categoria', '=', $categoria)
+        ->where('publicacios.slug', '=', $slug)
         ->first();
 
         $categorias=DB::table('categoris as c')

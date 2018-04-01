@@ -1,4 +1,4 @@
-<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-create">
+<div class="modal fade modal-slide-in-right" aria-hidden="true" role="dialog" tabindex="-1" id="modal-save">
 	{!! Form::open(['route' => 'publicaciones.store' , 'method' =>'POST','files' => true]) !!}
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -16,7 +16,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-					<button type="submit" class="btn btn-primary">Confirmar</button>
+					<button type="submit" class="btn btn-primary" id="Confirmar">Confirmar</button>
+					
 				</div>
 			</div>
 		</div>

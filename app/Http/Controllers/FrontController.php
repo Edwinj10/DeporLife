@@ -116,7 +116,7 @@ class FrontController extends Controller
         if ($request) 
         {
             $query=trim($request->get('searchText'));
-            $portadas = Publicacio::select('publicacios.id', 'publicacios.titulo', 'publicacios.descripcion','publicacios.foto','publicacios.created_at', 'users.name', 'categoris.categoria', 'publicacios.resumen')
+            $portadas = Publicacio::select('publicacios.id', 'publicacios.slug','publicacios.titulo', 'publicacios.resumen', 'publicacios.descripcion', 'publicacios.created_at', 'publicacios.tipo', 'categoris.categoria', 'publicacios.foto', 'publicacios.slug')
             ->join('categoris','categoris.id','=','publicacios.categoria_id')
             ->join('users','users.id','=','publicacios.user_id')
             ->where('publicacios.importante', '=', 'Si')

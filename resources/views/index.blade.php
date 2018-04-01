@@ -93,14 +93,14 @@
           @foreach ($portadas as $portada)
           <div class="col-md-4">
             <div class="card"> 
-              <a href="{{ route('portadas.show', $portada->id ) }}">
+              <a href="/noticias/{{$portada->categoria}}/{{$portada->slug}}">
                 <div class="view hm-zoom">
                   <img class="img-fluid" src="imagenes/publicaciones/{{ $portada->foto }}" alt="{{$portada->titulo}}"></a>  
                 </div>  
                 <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$portada->categoria}}</span> </div>
                 <div class="card-block">
                   <div class="news-title">
-                    <h2 class=" title-small"><a href="{{ route('portadas.show', $portada->id ) }}">{{$portada->titulo}}</a></h2>
+                    <h2 class=" title-small"><a href="/noticias/{{$portada->categoria}}/{{$portada->slug}}">{{$portada->titulo}}</a></h2>
                   </div>
                   <p class="card-text">{{substr(strip_tags($portada->resumen), 0,100)}}...</p>
                   <p class="card-text"><small class="text-time" id="sma"><em>{!!$portada->created_at->diffForHumans()!!} </em></small></p>
@@ -179,7 +179,7 @@
                 <h2 class="widget-title">Videos</h2>
                 <div class="video-block">
                   <div class="embed-responsive embed-responsive-4by3">
-                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/KoHGpJFNYjg" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/omHJOgbwmP0"  allowfullscreen></iframe>
                   </div>
                 </div>
               </div>
@@ -516,39 +516,39 @@
                 </div> -->
                 <!--/.Third slide-->
 
-              <!-- </div> -->
-              <!--/.Slides-->
+                <!-- </div> -->
+                <!--/.Slides-->
 
-           <!--  </div> -->
-            <!--/.Carousel Wrapper-->
+                <!--  </div> -->
+                <!--/.Carousel Wrapper-->
           <!-- </div>
-        </section> -->
-        <!--footer start from here-->
-        <!-- footer -->
-        @include('complementos.footer')
+          </section> -->
+          <!--footer start from here-->
+          <!-- footer -->
+          @include('complementos.footer')
 
-        @include('complementos.copyright')
+          @include('complementos.copyright')
 
-        <script> 
-          $(document).ready(function(){
+          <script> 
+            $(document).ready(function(){
 
-            $('.ir-arriba').click(function(){
-              $('body, html').animate({
-                scrollTop: '0px'
-              },300 );
+              $('.ir-arriba').click(function(){
+                $('body, html').animate({
+                  scrollTop: '0px'
+                },300 );
+              });
+
+              $(window).scroll(function(){
+                if ($(this).scrollTop() > 0){
+                  $('.ir-arriba').slideDown(300);
+                } else {
+                  $('.ir-arriba').slideUp(300);
+                };
+              });
+
             });
+          </script>
+          @include('complementos.scrips')
+        </body>
 
-            $(window).scroll(function(){
-              if ($(this).scrollTop() > 0){
-                $('.ir-arriba').slideDown(300);
-              } else {
-                $('.ir-arriba').slideUp(300);
-              };
-            });
-
-          });
-        </script>
-        @include('complementos.scrips')
-      </body>
-
-      </html>
+        </html>

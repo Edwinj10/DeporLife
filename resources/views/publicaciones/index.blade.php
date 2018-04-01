@@ -1,4 +1,3 @@
-
 @extends ('layouts.admin')
 @section ('content')
 @include('errors.mensaje')
@@ -15,22 +14,17 @@
               <h3 class="panel-title">Listado de Publicacaiones</h3>
               <h3 class="panel-title">Actualmente se encuentran registradas <b>{{$publicaciones->total()}}</b></h3>
               <br>
-             <!--  <div class="form-group">
-                <h3 class="panel-title"><b>Filtrar por estado:</b></h3>
-                <br>
-                <select name="estado" class="form-control selectpicker" data-live-search="true" onchange="Seleccionar();" id="estado">
-                  <option value="">Eliga una opcion</option>
-                  <option value="Activo">Activo</option>
-                  <option value="Inactivo">Inactivo</option>
-                </select>
-              </div> -->
             </div>
             <div class="col-md-6 text-right col-xs-12">
-              <button type="button" class="btn btn-sm btn-primary btn-primary" data-target="#modal-create" data-toggle="modal"><em class="fa fa-pencil">Crear Nuevo</em></button>
+              <button type="button" class="btn btn-sm btn-primary btn-primary" data-target="#modal-save" data-toggle="modal"><em class="fa fa-pencil">Crear Nuevo</em></button>
               <button type="button" id="ver" class="btn btn-sm btn-primary btn-success">Eliminar</button>
+            </div>
+            <div class="col-md-6 text-right col-xs-12">
+              <button class="btn btn-primary" data-target="#modal-create" data-toggle="modal">Agregar Etiqueta</button>
             </div>
           </div>
           @include('errors.buscador')
+          @include('tags.modal-create')
           
         </div>
         <div class="panel-body">
@@ -67,8 +61,10 @@
                     <img src="{{asset('imagenes/publicaciones/'.$publicacion->foto)}}" alt="{{ $publicacion->titulo}}" height="100px" width="100px" class="img-thumbail">
                   </td>
                 </tr>
-                @include('publicaciones.modal-create')
+                
                 @include('publicaciones.modal')
+                @include('publicaciones.modal-create')
+                
                 
 
                 @endforeach
@@ -87,8 +83,11 @@
       </div>
 
     </div></div></div>
-    @push ('scripts')
-    <script type="text/javascript">
+    
+    <script>
+      $(document).ready(function(){
+        listEtiquetas();
+      });
       $(document).ready(function(){
         $("#ver").click(function(){
           $('.btn-danger').toggle(1000);
@@ -122,6 +121,52 @@
     //   type:'get',
     // });
   }
+  var listEtiquetas = function()
+  {
+    $.ajax({
+      type:'get',
+      url: '{{url('listtags')}}',
+      success: function(data){
+        $('#listar-tags').empty().html(data);
+      }
+    });
+  }
+  $('#GrabarE').click(function(event)
+  {
+    var etiqueta = $('#etiqueta').val();
+    var token = $("input[name=_token]").val();
+    var route = "{{route('etiquetas.store')}}";
+
+    $.ajax({
+      url : route ,
+      headers: {'X-CSRF-TOKEN':token},
+      type: 'post',
+      datatype : 'json' ,
+      data: {etiqueta: etiqueta},
+      success:function(data)
+      {
+        if (data.success == 'true')
+        {
+
+              // alert('Comentario Guardado Correctamente');
+              // $('#save').fadeOut(1500);
+              $('#etiqueta').val('');
+              $('#modal-create').modal('toggle');
+              // $('#message-save').fadeIn(1500);
+              $('#message-save').show().delay(2000).fadeOut(2);
+              listEtiquetas();
+
+            }
+          },
+          error:function(data)
+          {
+            // console.log(data.responseJSON.comentario);
+            $("#error").html(data.responseJSON.etiqueta);
+            $('#message-error').show().delay(2000).fadeOut(2);
+          }
+        })
+
+  });
 </script>
-@endpush
+
 @stop

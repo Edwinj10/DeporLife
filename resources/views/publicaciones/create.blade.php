@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 	<meta charset="UTF-8">
 </head>
@@ -69,13 +69,16 @@
 			<label for="foto">Imagen</label>
 			<input type="file" id="imagen" name="foto" required value="{{old('foto')}}" class="form-control">
 		</div>
-		
 	</div>
-	<div class="col-md-12">
-		<div id="my-tag-list" class="tag-list"></div>
+	<div class="col-lg-12 col-md-12">
+		<label for="">Tags</label>
+		<div class="dual-list col-md-12">
+			<div class="well">
+				@include('publicaciones.etiquetas')
+				
+			</div>
+		</div>
 	</div>
-	<input type="text" id="tags" name="tags">
-	<br><br>
 </body>
 @push ('scripts')
 <script type="text/javascript">
@@ -94,13 +97,5 @@
 	}
 
 </script>
-<script>
-	$(function() {
-    $('#my-tag-list').tags({
-    	tagData:["Noticias"],
-    	
-    });
-    tags=$('input.form-control tags-input input-md').val();
-});
-</script>
+
 @endpush
