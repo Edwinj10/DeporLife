@@ -19,6 +19,17 @@ body {
   /*para ocultar la barra*/
   /*overflow-x: hidden;*/
 }
+/*titulo publicaciones h4*/
+h4#titulo {
+  color: #221f1f;
+  font-size: 24px;
+  font-weight: 600;
+}
+/*foto usuario vista show*/
+img#imagen.rounded-circle.z-depth-1-half {
+  width: 60px;
+  height: 60px;
+}
 /*etiquetas a*/
 a:focus, a:hover {
   color: #014c8c;

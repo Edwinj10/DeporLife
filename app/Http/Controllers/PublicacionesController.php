@@ -153,7 +153,7 @@ class PublicacionesController extends Controller
 
         $users=DB::table('users as u')
         ->join('publicacios as p', 'p.user_id', '=', 'u.id')
-        ->select('u.id', 'u.name')
+        ->select('u.id', 'u.name', 'u.foto as imagen')
         ->where('p.id', '=',$publicacion->id)
         ->get();
 

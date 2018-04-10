@@ -4,7 +4,33 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <h4>{{$publicacion->titulo}}</h4>
+        <h4 id="titulo">{{$publicacion->titulo}}</h4>
+        <div class="social-counters ">
+          <!--Facebook-->
+          <a class="btn btn-fb ">
+            <i class=" fa fa-facebook"></i>
+            <span class="clearfix d-none d-md-inline-block">Facebook</span>
+          </a>
+          <!--Twitter-->
+          <a class="btn btn-tw ">
+            <i class="fa fa-twitter"></i>
+            <span class="clearfix d-none d-md-inline-block">Twitter</span>
+          </a>
+          <!--Google+-->
+          <a class="btn btn-gplus ">
+            <i class="fa fa-google-plus"></i>
+            <span class="clearfix d-none d-md-inline-block">Google+</span>
+          </a>
+          <!--Comments-->
+          <a class="btn btn-default ">
+            <i class="fa fa-comments-o"></i>
+            <span class="clearfix d-none d-md-inline-block">Comentar</span>
+          </a>
+        </div>
+        <!-- fin social -->
+        <hr>
+        <br>
+        <!--Social shares-->
         <div class="card">
           <div class="view hm-zoom">
             <img class="img-fluid" src="/imagenes/publicaciones/{{ $publicacion->foto }}" alt="{{$publicacion->titulo}}"></a>  
