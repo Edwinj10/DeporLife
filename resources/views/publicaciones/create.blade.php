@@ -75,7 +75,6 @@
 		<div class="dual-list col-md-12">
 			<div class="well">
 				@include('publicaciones.etiquetas')
-				
 			</div>
 		</div>
 	</div>

@@ -41,9 +41,11 @@ h6#temas {
   font-weight: 700;
 }
 /*boton circular*/
-button.btn.btn-danger.btn-rounded {
+button#tags.btn.btn-danger.btn-rounded {
   border-radius: 10em;
+  font-size: 11px;
 }
+
 /*title de noricias*/
 .widget-title {
   display: inline-block;

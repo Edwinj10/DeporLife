@@ -1,50 +1,41 @@
- <div class="col-lg-6">
+<!--Grid column-->
+  <!--Newsfeed-->
   <div class="mdb-feed">
+   @foreach ($comentario as $co)
+   <!--First news-->
+   <div class="news">
 
-    <!--Fourth news-->
-    @foreach ($comentario as $co)
-    <div class="news">
+    <!--Label-->
+    <div class="label">
+      <img src="/imagenes/usuarios/{{ $co->foto }}" class="rounded-circle z-depth-1-half">
+    </div>
 
-      <!--Label-->
-      <div class="label">
-        <img src="/imagenes/usuarios/{{ $co->foto }}" class="rounded-circle z-depth-1-half">
+    <!--Excert-->
+    <div class="excerpt">
+
+      <!--Brief-->
+      <div class="brief">
+        <a class="name">{{$co->name}}</a>
+        <div class="date">{!!$co->created_at->diffForHumans()!!}</div>
       </div>
-
-      <!--Excert-->
-      <div class="excerpt">
-
-        <!--Brief-->
-        <div class="brief">
-          <a class="name">{{$co->name}}</a>
-          <div class="date">{!!$co->created_at->diffForHumans()!!}</div>
-        </div>
-
-        <!--Added text-->
-        <div class="added-text">{{$co->comentario}}</div>
-        <!--Feed footer-->
-        <div class="feed-footer">
-          @if (Auth::guest())
-            @else
-              @if (Auth::user()->id == $co->user_id) 
-              <a href="#" onclick='Mostrar({{$co->Id}});' data-toggle='modal' data-target='#myModalEditar'>[Editar]</a>
-              <a href="#" onclick='Eliminar({{$co->Id}});'>[Eliminar]
-              </a>
-                @else
-              @endif
-          @endif
-        </div>
-        <hr>
-
+      <div class="added-text">{{$co->comentario}}</div>
+      <!--Feed footer-->
+      <div class="feed-footer">
+        @if (Auth::guest())
+        @else
+        @if (Auth::user()->id == $co->user_id) 
+        <a href="#" onclick='Mostrar({{$co->Id}});' data-toggle='modal' data-target='#myModalEditar'><i class="fa fa-pencil">[Editar]</i></a>
+        <a href="#" onclick='Eliminar({{$co->Id}});'><i class="fa fa-trash">[Eliminar]</i>
+        </a>
+        @else
+        @endif
+        @endif
       </div>
 
     </div>
-    @endforeach
-    <!-- @include('error.alert') -->
-    
-    <div>
 
-    </div>
   </div>
-</div>
+  @endforeach
 
-<!--Newsfeed-->
+</div>
+{{$comentario->render()}}

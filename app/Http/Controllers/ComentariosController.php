@@ -72,7 +72,7 @@ class ComentariosController extends Controller
         ->join('users', 'users.id', '=' ,'comentarios.user_id')
         ->where('comentarios.publicacions_id', '=',$publicacion->id)
         ->orderBy('comentarios.id', 'desc')
-        ->paginate(2);
+        ->paginate(5);
         
 
     }

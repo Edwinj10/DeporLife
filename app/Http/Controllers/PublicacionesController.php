@@ -197,8 +197,15 @@ class PublicacionesController extends Controller
      */
     public function edit($id)
     {
+      $categorias=DB::table('categoris as c')
+      ->select('c.*')
+      ->get();
+      
+      $tags       = Etiqueta::orderBy('etiqueta', 'ASC')->get();
 
-      return view ('publicaciones.edit', ['publicacion'=>Publicacio::findOrFail($id)]);
+      $publicacion = Publicacio::find($id);
+      return view('publicaciones.edit',['publicacion'=>$publicacion, 'categorias'=>$categorias, 'tags'=>$tags]);
+      // return view ('publicaciones.edit', ['publicacion'=>Publicacio::findOrFail($id)]);
     }
 
     /**
@@ -231,6 +238,7 @@ class PublicacionesController extends Controller
         $publicacion->foto=$filename;
       }   
       $publicacion->update(); 
+      $publicacion->etiquetas()->sync($request->get('tags'));
 
       Session::flash('message','Publicacion Actualizada Correctamente');
       return Redirect::to('/publicaciones');

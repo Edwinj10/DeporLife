@@ -22,7 +22,7 @@
             <span class="clearfix d-none d-md-inline-block">Google+</span>
           </a>
           <!--Comments-->
-          <a class="btn btn-default ">
+          <a class="btn btn-default " href="" data-target="#myModalCreate" data-toggle="modal">
             <i class="fa fa-comments-o"></i>
             <span class="clearfix d-none d-md-inline-block">Comentar</span>
           </a>
@@ -38,11 +38,11 @@
           <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$publicacion->categoria}}</span> </div>
         </div>
         {!!$publicacion->descripcion!!}
-        <div class="responsive">
-          <div class="row">
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
             <h6 id="temas">Temas relacionados:</h6>
             @foreach($publicacion->etiquetas as $tag)
-            <button type="button" class="btn btn-danger btn-rounded">{{$tag->etiqueta}}</button>
+            <button type="button" class="btn btn-danger btn-rounded" id="tags">{{$tag->etiqueta}}</button>
             @endforeach
           </div>
         </div>
@@ -86,9 +86,9 @@
       </div>
       <!-- mensajes -->
       <div class="col-lg-12">
-        <div id="message-error" class="alert alert-danger danger" role="alert" style="display: none ">
+        <!-- <div id="message-error" class="alert alert-danger danger" role="alert" style="display: none ">
           <strong id="error"></strong>
-        </div>
+        </div> -->
         <div id="message-delete" class="alert alert-info" role="alert" style="display: none ">
           <strong>El registro se elimino correctamente</strong>
         </div>
@@ -99,51 +99,25 @@
           <strong id="save">Comentario Actualizado Correctamente</strong>
         </div>
       </div>
-
+      <br>
       <h2 class="widget-title">Comentarios</h2>
+      <section class="">
 
-      <p>
-        @if (Auth::guest())
-        <a href="" data-target="#modal-login" data-toggle="modal" class="nav-link">
-          <button class="btn btn-danger">Iniciar Sesion</button></a>
-          @else
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-            Comentar
-          </a>
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-            Ver Comentarios
-          </button>
-          @endif
-        </p>
-        <div class="collapse" id="collapseExample1">
-          <!-- Form subscription -->
-          <div class="col-md-5">
-            <!-- <div class="heading-large">Agregar comentario</div> -->
-            {!! Form::open(['id' => 'form']) !!}
-
-            <div class="md-form">
-              <!--   <i class="fa fa-pencil prefix"></i> -->
-              <textarea type="text"  class="md-textarea" id="comentario"></textarea>
-
-              <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
-              <input type="hidden" name="publicacions_id" id="publicacions_id" value="{{$publicacion->id}}">
-              <input type="hidden" name="estado" id="estado" value="Espera">
-              <label for="form8">Agregar comentario</label>
-            </div>
-            {!!link_to('##', 'Grabar', ['id' => 'Grabar', 'class' => 'btn btn-primary'])!!}
-
-            {!!Form::close()!!}
+        <!--Grid row-->
+        <div class="row">
+          <div class="col-lg-6" id="listar-comentarios">
           </div>
-          <!-- Form subscription -->
-        </div>
-        <div class="collapse" id="collapseExample2" id="listar-comentarios">
-          <div class="row" id="listar-comentarios">
-
+          <div class="col-lg-6">
+            <h1>save</h1>
           </div>
         </div>
-        @include('comentarios.editar')
+        
+        <!--Grid row-->
       </section>
-    </div>
+      @include('comentarios.editar')
+      @include('comentarios.create')
+    </section>
+    <!--  </div> -->
 
   <!-- <section class="video-gallery-sec">
     <div class="container">
@@ -229,7 +203,9 @@
               // alert('Comentario Guardado Correctamente');
               // $('#save').fadeOut(1500);
               $('#comentario').val('');
+              $('#myModalCreate').modal('toggle');
               // $('#message-save').fadeIn(1500);
+              alert('Comentario Guardado Correctamente');
               $('#message-save').show().delay(2000).fadeOut(2);
               listComentarios();
 
@@ -238,10 +214,11 @@
           error:function(data)
           {
             // console.log(data.responseJSON.comentario);
-            $("#error").html(data.responseJSON.comentario);
-            $('#message-error').show().delay(2000).fadeOut(2);
-          }
-        })
+            $('#error-save').html(data.responseJSON.comentario);
+          // $('#message-error_edit').fadeIn();
+          $('#message-error').show().delay(2000).fadeOut(2);
+        }
+      })
 
       });
 
