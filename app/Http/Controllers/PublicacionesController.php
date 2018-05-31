@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests\PublicacionesRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Publicacio;
+use App\Imagen;
+use File;
 use App\Comentario;
 use App\Etiqueta;
 use Carbon\Carbon;
@@ -119,7 +121,19 @@ class PublicacionesController extends Controller
 
         $publicacion->etiquetas()->attach($request->get('tags'));
         // return $publicacion;
-        
+        $max= DB::table('publicacios')->max('id');
+        //guardar multiples file
+        if ($request->hasFile('image')) {
+          foreach ($request->image as $image) {
+            $filename = uniqid() . '.' . time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(970,580)->save(public_path('/imagenes/publicaciones/'.$filename));
+            Imagen::create([
+              'publicacio_id' => $max,
+              'image' => $filename
+            ]);
+          }
+        }
+        // dd(request()->all());
 
         return redirect('/publicaciones')->with('message' , 'Publicacion Creada Correctamente');
       }

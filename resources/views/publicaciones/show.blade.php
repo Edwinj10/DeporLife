@@ -70,9 +70,9 @@
 
               <!--Excerpt-->
               <div class="col-md-6 col-xs-6">
-                <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>{!!$last->created_at->diffForHumans()!!} </em></small></p>
                 <h2 class=" title-small"><a href="/noticias/{{$last->categoria}}/{{$last->slug}}">{{substr(strip_tags($last->titulo), 0,40)}}..
                   <i class="fa fa-angle-right"></i></a></h2>
+                  <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>  {!!$last->created_at->diffForHumans()!!} </em></small></p>
                 </div>
 
               </div>

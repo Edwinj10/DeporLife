@@ -140,44 +140,13 @@
                 <li class="treeview">
                   <a href="#">
                     <i class="fa fa-line-chart"></i>
-                    <span>Indicadores</span>
+                    <span>Categorias/Ligas/Equipos</span>
                     <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
                     <!-- <li><a href="{!!URL::to('/indicador/create')!!}"><i class="fa fa-circle-o"></i> Agregar</a></li> -->
-                    <li><a href="{!!URL::to('/indicador')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
-                    <li><a href="{!!URL::to('/tipo')!!}"><i class="fa fa-circle-o"></i> Tipo de indicadores</a></li>
-                  </ul>
-                </li>
-
-                <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-industry"></i> <span>Informe de Indicadores</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="{!!URL::to('/informe')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-file-pdf-o"></i> <span>Boletin</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </a>
-                  <ul class="treeview-menu">
-                    <!-- <li><a href="{!!URL::to('/boletin/create')!!}"><i class="fa fa-circle-o"></i> Agregar</a></li> -->
-                    <li><a href="{!!URL::to('/boletin')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
-                  </ul>
-                </li>
-                <li>
-                 <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-building"></i> <span>Instituciones</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </a>
-                  <ul class="treeview-menu">
-                    <!-- <li><a href="{!!URL::to('/institucion/create')!!}"><i class="fa fa-circle-o"></i> Agregar</a></li> -->
-                    <li><a href="{!!URL::to('/institucion')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
+                    <li><a href="{!!URL::to('/indicador')!!}"><i class="fa fa-circle-o"></i> Agregar</a></li>
+                    <li><a href="{!!URL::to('/tipo')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
                   </ul>
                 </li>
                 <li class="treeview">
@@ -191,48 +160,17 @@
                   </ul>
                 </li>
                 <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-file"></i> <span>Tesis</span>
-                    <i class="fa fa-angle-left pull-right"></i>
+                  <a data-target="#modal-ayuda" data-toggle="modal">
+                    <i class="fa fa-plus-square"></i> <span>Ayuda</span> 
+                    <!--  <small class="label pull-right bg-red">PDF</small> -->
                   </a>
-                  <ul class="treeview-menu">
-                   <!--  <li><a href="{!!URL::to('/tesis/create')!!}"><i class="fa fa-circle-o"></i> Agregar</a></li> -->
-                   <li><a href="{!!URL::to('/tesis')!!}"><i class="fa fa-circle-o"></i> Listar Tesis</a></li>
-                   <li><a href="{!!URL::to('/carreras')!!}"><i class="fa fa-circle-o"></i> Listar Carreras</a></li>
-                 </ul>
-               </li>
-               <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-picture-o"></i> <span>Imagenes de Portadas</span>
-                  <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{!!URL::to('/portadas')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-comments"></i> <span>Correos</span>
-                  <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                  <!-- <li><a href="{!!URL::to('/institucion/create')!!}"><i class="fa fa-circle-o"></i> Agregar</a></li> -->
-                  <li><a href="{!!URL::to('/mail')!!}"><i class="fa fa-circle-o"></i> Listar</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a data-target="#modal-ayuda" data-toggle="modal">
-                  <i class="fa fa-plus-square"></i> <span>Ayuda</span> 
-                  <!--  <small class="label pull-right bg-red">PDF</small> -->
-                </a>
-              </li>
+                </li>
             <!-- <li>
               <a href="#">
                 <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
                 <small class="label pull-right bg-yellow">IT</small>
               </a>
             </li> -->
-
           </ul>
         </section>
         <!-- /.sidebar -->

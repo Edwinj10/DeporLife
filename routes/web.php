@@ -19,6 +19,7 @@ Route::get('/listall/{categoria}/{slug}/{page?}', 'ComentariosController@listall
 Route::get('noticias/{categoria}/{slug}', 'PublicacionesController@mostrar');
 Route::resource('usuarios', 'UsuarioController');
 Route::resource('comentarios', 'ComentariosController');
+Route::get('/listallcategoria/{page?}', 'CategoriaController@listcategorias'); 
 Route::resource('categoria', 'CategoriaController');
 Route::get('/listall/{page?}', 'EtiquetaController@listall'); 
 Route::get('/listtags/{page?}', 'EtiquetaController@listtags');
@@ -26,7 +27,6 @@ Route::resource('/etiquetas', 'EtiquetaController');
 
 
 // Web
-
 Route::get('futbol','FrontController@futbol');
 Route::get('futbolnacional','FrontController@futbol_nacional');
 Route::get('futbolinternacional','FrontController@futbol_internacional');

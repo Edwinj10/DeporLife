@@ -6,8 +6,14 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CategoriaRequest;
-use App\Categoria;
+use App\Categori;
+use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
+use Session;
 use DB;
+use Auth;
+use Cache;
+use Image;
 
 class CategoriaController extends Controller
 {
@@ -22,18 +28,22 @@ class CategoriaController extends Controller
     }
     public function index(Request $request)
     {
-        if ($request) 
-        {
+     $categorias=DB::table('categoris as c')
+     ->select('c.*')
+     ->paginate(50);
 
-            $query=trim($request->get('searchText'));
+     return view('categoria.index', ["categorias"=>$categorias]);
 
-            $categorias=DB::table('categorias')->where('categoria','LIKE', '%'.$query.'%')
-            ->orderBy('id', 'asc')
-            ->paginate(7);
+    }
+     public function listcategorias()
+    {
 
-            return view('categoria.index', ["categorias"=>$categorias, "searchText"=>$query]);
-        }
+      $categorias=DB::table('categoris as c')
+      ->select('c.*')
+      ->orderby('c.categoria', 'desc')
+      ->paginate(50);
 
+      return view('categoria.list', ["categorias"=>$categorias]);
 
     }
 
@@ -44,20 +54,26 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view ('categoria.create');
+        // return view ('categoria.create');
 
     }
     public function store(CategoriaRequest $request)
-    
     {
-        $categoria=new Categoria;
-        $categoria->categoria=$request->get('categoria');
-        $categoria->save();
 
-        return Redirect::to('/categoria');
+        if ($request->ajax()) 
+        {
+            $result = Categori::create($request->all());
 
-
-    }
+            if ($result) {
+                Session::flash('save', 'Se ha creado Correctamente');
+                return response()->json(['success' => 'true']);
+            }
+            else
+            {
+                return response()->json(['success' => 'false']);
+            }
+        }
+    } 
     public function show($id)
     {
         return view ('categoria.show', ['categoria'=>Categoria::findOrFail($id)]);
@@ -67,29 +83,46 @@ class CategoriaController extends Controller
     }
     public function edit($id)
     {
-        return view ('categoria.edit', ['categoria'=>Categoria::findOrFail($id)]);
+        $categoria = Categori::find($id);
+        return response()->json($categoria);
 
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoriaRequest $request, $id)
     {
-        $categoria= Categoria::findOrFail($id);
-        $categoria->categoria=$request->get('categoria');
-        $categoria->update();
+        if ($request->ajax())
+        {
+          $categoria = Categori::findOrFail($id);
+          $input =  $request->all();
+          $result = $categoria->fill($input)->save();
 
-        return Redirect::to('/categoria');
+          if ($result) 
+          {
+              return response()->json(['success' => 'true']);
+          }
+          else 
+            {
+            return response()->json(['success' => 'false']);
+            }
+        }
 
     }
-    
+
     public function destroy($id)
     {
-        $categoria=DB::table('categorias')->where('id', '=', $id)->delete();
-        Session::flash ('message', 'Eliminado Correctamente');
-        return redirect::to('/categoria');
-        
+        $categoria=Categori::findOrFail($id);
+        $result = $categoria->delete();
+        if ($result) 
+        {
+            return response()->json(['success' => 'true']);
+        }
+        else
+        {
+            return response()->json(['success'=>'false']);
+        }
+
     }
 
 }
 
-      
-      
+

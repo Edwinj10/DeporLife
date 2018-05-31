@@ -70,6 +70,16 @@
 			<input type="file" id="imagen" name="foto" required value="{{old('foto')}}" class="form-control">
 		</div>
 	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>Agregar Mas Imagenes</label>
+			<button type="button" id="ver2" class="btn btn-sm btn-primary btn-success">Si</button>
+			<div class="form-group" id="imagenes">
+				{!! Form::label('imagen','Subir una o más imágenes') !!}
+				{!! Form::file('image[]',['multiple' => 'multiple','accept'=>'image/x-png,image/jpeg'])!!}
+			</div>
+		</div>
+	</div>
 	<div class="col-lg-12 col-md-12">
 		<label for="">Tags</label>
 		<div class="dual-list col-md-12">
@@ -81,6 +91,15 @@
 </body>
 @push ('scripts')
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("#imagenes").hide();
+	});
+	$(document).ready(function(){
+		$("#ver2").click(function(){
+			$('#imagenes').toggle(1000);
+		});
+	});
+	
 	function cuentatitulo(){
 		var longi=100;
 		var resta="";
@@ -94,7 +113,6 @@
 			alert("Ha llegando al tamaño maximo de caracteres permitidos");
 		}
 	}
-
 </script>
 
 @endpush
