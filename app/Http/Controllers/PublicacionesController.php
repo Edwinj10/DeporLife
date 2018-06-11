@@ -11,6 +11,7 @@ use App\Publicacio;
 use App\Imagen;
 use File;
 use App\Comentario;
+use App\Imagene;
 use App\Etiqueta;
 use Carbon\Carbon;
 use App\User;
@@ -19,6 +20,7 @@ use DB;
 use Auth;
 use Cache;
 use Image;
+use Jenssegers\Date\Date;
 
 class PublicacionesController extends Controller
 {
@@ -148,16 +150,26 @@ class PublicacionesController extends Controller
      */
     public function mostrar(Request $request, $categoria, $slug)
     {
-      if ($request) 
-      {   
 
+      if ($request) 
+      {
         $query=trim($request->get('searchText'));
-        $publicacion=Publicacio::select('publicacios.id', 'publicacios.titulo', 'publicacios.resumen', 'publicacios.descripcion', 'publicacios.created_at', 'publicacios.tipo', 'categoris.categoria', 'publicacios.foto','publicacios.slug' )
+        $publicacion=Publicacio::select('publicacios.id', 'publicacios.titulo', 'publicacios.resumen', 'publicacios.descripcion', 'publicacios.created_at', 'publicacios.tipo', 'categoris.categoria', 'publicacios.foto','publicacios.slug', 'users.name' )
         ->join('categoris', 'publicacios.categoria_id', '=', 'categoris.id')
         ->join('users', 'publicacios.user_id', '=', 'users.id')
         ->where('categoris.categoria', '=', $categoria)
         ->where('publicacios.slug', '=', $slug)
         ->first();
+        
+        // $imagenes=Imagen::select('imagens.id', 'imagens.image', 'publicacios.foto')
+        // ->join('publicacios', 'imagens.publicacio_id', '=', 'publicacios.id')
+        // ->where('imagens.publicacio_id', '=', $publicacion->id)
+        // ->get();
+        // $imagenes = Imagen::all();
+        $imagenes = DB::table('imagens')->where('imagens.publicacio_id', '=', $publicacion->id)->get();
+        // $imagenes = Imagen::findOrFail($publicacion->id);
+        
+        // return $imagenes;
 
         $categorias=DB::table('categoris as c')
         ->join('publicacios as p', 'p.categoria_id', '=', 'c.id')
@@ -192,11 +204,10 @@ class PublicacionesController extends Controller
           $variable->total_visitas++;
           $variable->save();
         }
+        return view ('publicaciones.show', ['publicacion'=>$publicacion, 'variable'=>$variable, 'sugerencias'=>$sugerencias, 'users'=>$users, 'categorias'=>$categorias, 'latest'=>$latest, "searchText"=>$query, 'imagenes' => $imagenes]);
+
 
       }
-      return view ('publicaciones.show', ['publicacion'=>$publicacion, 'variable'=>$variable, 'sugerencias'=>$sugerencias, 'users'=>$users, 'categorias'=>$categorias, 'latest'=>$latest, "searchText"=>$query]);
-
-
     }
     public function show($id)
     {

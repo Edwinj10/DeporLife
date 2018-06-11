@@ -28,7 +28,20 @@
           </a>
         </div>
         <!-- fin social -->
-        <hr>
+        <!-- linia de tiempo -->
+        <hr id="icon">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <img src="/img/Logos/perfil.png" alt="" id="iconos1"><label id="icon">{{$publicacion->name}}</label>
+            </div>
+            <div class="col-md-6">
+              <img src="/img/Logos/reloj-de-contorno-circular.png" alt="" id="iconos2"><label id="icon">{{$publicacion->created_at->diffForHumans()}}</label>
+            </div>
+          </div>
+        </div>
+        <hr id="icon">
+        <!-- fin linea de tiempo -->
         <br>
         <!--Social shares-->
         <div class="card">
@@ -37,55 +50,76 @@
           </div> 
           <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$publicacion->categoria}}</span> </div>
         </div>
+
         {!!$publicacion->descripcion!!}
+        <!-- slishow -->
+
         <div class="row">
-          <div class="col-md-12 col-xs-12">
-            <h6 id="temas">Temas relacionados:</h6>
-            @foreach($publicacion->etiquetas as $tag)
-            <button type="button" class="btn btn-danger btn-rounded" id="tags">{{$tag->etiqueta}}</button>
+          <div class="bxslider">
+            @foreach($imagenes as $img)
+            <div><img src="/imagenes/publicaciones/{{ $img->image }}" title="{{ $img->id }}"></div>
             @endforeach
           </div>
         </div>
-      </div>
-      <br>
+        <!-- <div class="row">
+          <ul class="bxslider">
+            @foreach($imagenes as $img)
+            <li><a class="test-popup-link" href="/imagenes/publicaciones/{{ $img->image }}"><img
+              src="/imagenes/publicaciones/{{ $img->image }}"></a></li>
+              @endforeach
 
-      <div class="col-md-4">
-        <h2 class="widget-title">Últimas Noticias</h2>
-        <div class="col-md-12 col-xs-12">
-          @foreach ($latest as $last)
-          <!--Small news-->
-          <div class="single-news">
+            </ul>
 
-            <div class="row">
-              <div class="col-md-6 col-xs-6">
-
-                <!--Image-->
-                <div class="view hm-zoom">
-                  <img src="/imagenes/publicaciones/{{ $last->foto }}" class="img-fluid" alt="{{$last->titulo}}" class="img-fluid" alt="{{$last->titulo}}">
-                  <a href="/noticias/{{$last->categoria}}/{{$last->slug}}">
-                    <div class="mask"></div>
-                  </a>
-                </div>
-              </div>
-
-              <!--Excerpt-->
-              <div class="col-md-6 col-xs-6">
-                <h2 class=" title-small"><a href="/noticias/{{$last->categoria}}/{{$last->slug}}">{{substr(strip_tags($last->titulo), 0,40)}}..
-                  <i class="fa fa-angle-right"></i></a></h2>
-                  <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>  {!!$last->created_at->diffForHumans()!!} </em></small></p>
-                </div>
-
-              </div>
+          </div> -->
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <h6 id="temas">Temas relacionados:</h6>
+              @foreach($publicacion->etiquetas as $tag)
+              <button type="button" class="btn btn-danger btn-rounded" id="tags">{{$tag->etiqueta}}</button>
+              @endforeach
             </div>
-            <hr>
-            @endforeach
-            <!--poner etiquetas -->
           </div>
-
         </div>
-      </div>
-      <!-- mensajes -->
-      <div class="col-lg-12">
+        <br>
+
+
+        <div class="col-md-4">
+          <h2 class="widget-title">Últimas Noticias</h2>
+          <div class="col-md-12 col-xs-12">
+            @foreach ($latest as $last)
+            <!--Small news-->
+            <div class="single-news">
+
+              <div class="row">
+                <div class="col-md-6 col-xs-6">
+
+                  <!--Image-->
+                  <div class="view hm-zoom">
+                    <img src="/imagenes/publicaciones/{{ $last->foto }}" class="img-fluid" alt="{{$last->titulo}}" class="img-fluid" alt="{{$last->titulo}}">
+                    <a href="/noticias/{{$last->categoria}}/{{$last->slug}}">
+                      <div class="mask"></div>
+                    </a>
+                  </div>
+                </div>
+
+                <!--Excerpt-->
+                <div class="col-md-6 col-xs-6">
+                  <h2 class=" title-small"><a href="/noticias/{{$last->categoria}}/{{$last->slug}}">{{substr(strip_tags($last->titulo), 0,40)}}..
+                    <i class="fa fa-angle-right"></i></a></h2>
+                    <p class="card-text"></strong><small class="text-time" id="sma"><em><i class="fa fa-clock-o"></i>  {!!$last->created_at->diffForHumans()!!} </em></small></p>
+                  </div>
+
+                </div>
+              </div>
+              <hr>
+              @endforeach
+              <!--poner etiquetas -->
+            </div>
+
+          </div>
+        </div>
+        <!-- mensajes -->
+        <div class="col-lg-12">
         <!-- <div id="message-error" class="alert alert-danger danger" role="alert" style="display: none ">
           <strong id="error"></strong>
         </div> -->
@@ -138,6 +172,17 @@
 </div>     
 
 <!-- script comentario -->
+<script>
+  $(function(){
+    $('.bxslider').bxSlider({
+      mode: 'fade',
+      captions: true,
+      slideWidth: 700,
+      auto: true
+
+    });
+  });
+</script>
 <script>
   $(document).ready(function(){
     listComentarios();
