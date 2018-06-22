@@ -29,6 +29,7 @@
        <script src="/admin/js/app.min.js"></script>
        <link rel="stylesheet" type="text/css" href="/admin/js/jquery-alertable/jquery.alertable.css">
        <script type="text/javascript" src="/admin/js/jquery-alertable/jquery.alertable.js"></script>
+       <script type="text/javascript" src="/js/jquery.form.js"></script>
        
        <link rel="apple-touch-icon" href="../admin/img/apple-touch-icon.png">
        <link rel="shortcut icon" href="/admin/img/favicon.ico">

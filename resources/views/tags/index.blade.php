@@ -64,7 +64,7 @@
 
         $.ajax({
           type:'get',
-          url: '{{url('listall')}}',
+          url: '{{url('listalletiqueta')}}',
           success: function(data){
             $('#listar-etiquetas').empty().html(data);
           }

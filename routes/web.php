@@ -21,9 +21,12 @@ Route::resource('usuarios', 'UsuarioController');
 Route::resource('comentarios', 'ComentariosController');
 Route::get('/listallcategoria/{page?}', 'CategoriaController@listcategorias'); 
 Route::resource('categoria', 'CategoriaController');
-Route::get('/listall/{page?}', 'EtiquetaController@listall'); 
+Route::get('/listalletiqueta/{page?}', 'EtiquetaController@listall'); 
 Route::get('/listtags/{page?}', 'EtiquetaController@listtags');
 Route::resource('/etiquetas', 'EtiquetaController');
+Route::get('/listall/{page?}', 'EquipoController@listall');
+Route::get('/team/{nombre}', 'EquipoController@show2');
+Route::resource('/equipos', 'EquipoController');
 
 
 // Web
