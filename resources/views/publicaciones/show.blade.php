@@ -54,6 +54,7 @@
         {!!$publicacion->descripcion!!}
         <!-- slishow -->
 
+        @if(!$imagenes->isEmpty())
         <div class="row">
           <div class="bxslider">
             @foreach($imagenes as $img)
@@ -61,6 +62,8 @@
             @endforeach
           </div>
         </div>
+        @else
+        @endif
         <!-- <div class="row">
           <ul class="bxslider">
             @foreach($imagenes as $img)

@@ -71,6 +71,23 @@
         <li class="nav-item"> <a class="nav-link" href="#">Más deportes</a> </li>
         <li class="nav-item"> <a class="nav-link" href="#">Videos</a> </li>
         <li class="nav-item"> <a class="nav-link" href="/galeria">Galeria</a> </li>
+        @if (Auth::guest())
+        <li class="nav-item" id="login"> <a class="nav-link" href="/login">Login</a> </li>
+        <li class="nav-item" id="login"> <a class="nav-link" href="/login">Registrarme</a> </li>
+        @else
+        <li class="nav-item dropdown" id="login">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Mi cuenta </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" id="hijos">Perfil</a>
+            @if (Auth::user()->tipo == "Administrador") 
+            <a class="dropdown-item" href="#" id="hijos">Administracion</a>
+            @endif
+            <a class="dropdown-item" href="#" id="hijos">Salir</a>
+            <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+
+          </div>
+        </li>
+        @endif
         <!-- ya no agregar mas, el menu se desconpone -->
           <!-- {!!Form::open(array('url'=>'busqueda', 'method'=> 'GET', 'autocomplete' => 'off', 'class'=>'pull-xs-right', 'role' => 'search')) !!}
           <div class="search">

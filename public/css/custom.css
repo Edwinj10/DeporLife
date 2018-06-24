@@ -804,8 +804,20 @@ header{float: left; width:100%}
       margin: 5px;
     }
     label#icon{
-      
+
     }
     div#descripcion {
       text-align: justify;
+    }
+    @media (max-width: 980px) {
+
+      button.navbar-toggler.hidden-lg-up
+      {
+        color: white;
+      }
+    }
+    @media screen and (min-width: 980px) {
+      li#login {
+        display: none;
+      }
     }
