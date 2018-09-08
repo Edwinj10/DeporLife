@@ -1,65 +1,47 @@
 @extends('layouts.principal')
 @section('content')
-<div class="container">
-            <div class="row">
-    
-                <div class="btn-group btn-breadcrumb" id="miga">
-                      <a href="/" class="btn btn-danger"><i class="fa fa-home "></i></a>
-                      <a href="/" class="btn btn-danger">Inicio</a>
-                      
-                      <a href="#" class="btn btn-danger">Futbol</a>
-                      
-                      <a href="#" class="btn btn-danger">Nacional</a>
-                </div>
-            </div>
- </div>
-<section class="section-02">
-          <div class="container">
-              <h3>
-                  <div class="heading-large">Noticias de Futbol Nacional
-              </h3>
-              <div class="row">
-              @foreach ($futbol as $fut)
-                  <div class="col-md-4">
-                      <div class="card"> 
-                          <img class="img-fluid" id="internacional" src="imagenes/publicaciones/{{ $fut->foto }}" alt="">
-                            <div class="card-block">
-                                <div class="news-title"><a href="{{ route('publicaciones.show', $fut->id ) }}">
-                                    <h2 class=" title-small">{{ $fut->titulo}}</h2>
-                                </a></div>
-                                <p class="card-text">{{$fut->resumen}} ...</p>
-                                <p class="card-text"><small class="text-time"><em>{{$fut->created_at}}</em></small></p>
-                            </div>
-                      </div>
-                      <!-- >diffForHumans() -->
-                  </div>
-                  <!--  -->
-                  @endforeach
-                  <div align="center">
-                      
-                    </div>
-                  
-                  @foreach ($portadas as $portada)
-                  <div class="col-md-4">
-                      <div class="card"> 
-                          <img class="img-fluid" id="internacional" src="imagenes/portada/{{ $portada->foto }}" alt="">
-                            <div class="card-block">
-                                <div class="news-title"><a href="{{ route('portadas.show', $portada->id ) }}">
-                                    <h2 class=" title-small">{{ $portada->titulo}}</h2>
-                                </a></div>
-                                <p class="card-text">{!! $portada->resumen!!} ...</p>
-                                <p class="card-text"><small class="text-time"><em>{{$portada->created_at}}</em></small></p>
-                            </div>
-                      </div>
-                      <!-- >diffForHumans() -->
-                  </div>
-                  <!--  -->
-                  @endforeach
-              </div>
-              
+<section class="banner-sec">
+  <div class="container">
+    <h2 class="widget-title">Fútbol Nicaragüense</h2>
+    <div class="row">
+      <div class="col-md-11 offset-md-1"> 
+        <div class="jumbotron" id="equipos" align="center">
+          @foreach ($equipos as $team)
+          <a href="/futbol/futbolnacional/equipos/{{$team->nombre}}">
+            <img src="/imagenes/equipos/logos/{{ $team->logo }}" height="70px" alt="{{$team->titulo}}" align="center"></a>
+            @endforeach
           </div>
-        </section>
+        </div>
+      </div>
+      <h2 class="widget-title">Noticias</h2>
+      <div class="row">
+        <div class="col-md-8"> 
+         @foreach ($futbolnac as $fut)
+         <div class="col-md-6">
+          <div class="card"> 
+            <a href="/noticias/{{$fut->categoria}}/{{$fut->slug}}">
+              <div class="view hm-zoom">
+                <img class="img-fluid" src="/imagenes/publicaciones/{{ $fut->foto }}" alt="{{$fut->titulo}}"></a> 
+              </div>
+              <div class="card-img-overlay"> <span class="tag tag-pill tag-danger">{{$fut->categoria}}</span> </div>
+              <div class="card-block">
+                <div class="news-title">
+                  <h2 class=" title-small"><a href="/noticias/{{$fut->categoria}}/{{$fut->slug}}">{{$fut->titulo}}</a></h2>
+                </div>
+                <p class="card-text">{{substr(strip_tags($fut->resumen), 0,100)}}...</p>
+                <p class="card-text"><small class="text-time" id="sma"><em>{!!$fut->created_at->diffForHumans()!!} </em></small></p>
+              </div>
+            </div>
 
-        <br>
-        
-@endsection
+          </div>
+          @endforeach
+        </div>
+        <h2 class="widget-title">Datos</h2>
+        <div class="col-md-4">
+          
+        </div>
+      </div>
+    </div>
+
+  </section>
+  @endsection

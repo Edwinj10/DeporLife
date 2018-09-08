@@ -108,7 +108,7 @@
 						<div class="form-group">
 							<label>Ligas</label>
 							<select name="ligas" class="form-control" id="ligas">
-								<option value="" selected="selected"></option>
+								<option value="" selected="selected">Ninguna</option>
 								@foreach ($ligas as $l)
 								<option value="{{$l->id}}">{{$l->liga}}</option>
 								@endforeach
@@ -181,6 +181,7 @@
       		}
       	});
       }
+      // guardar
       $("body").on("click",".upload-image",function(e){
       	$(this).parents("form").ajaxForm(options);
       });
@@ -205,6 +206,13 @@
       			$("input[name='ligas_id']").val('');
       			// alert('Image Upload Successfully.');
       			listEquipos();
+      			$("input[name='logo']").val('');
+      			$("input[name='plantilla']").val('');
+      			$("input[name='uniforme']").val('');
+      			$("input[name='estadio']").val('');
+      			$("input[name='historia']").val('');
+      			$("input[name='descripcion']").val('');
+      			$("input[name='nombre_estadio']").val('');
       			$('#listar-equipos').toggle(1000);
       			$('#panel').toggle(1000);
       			$("#save-equipos").hide();

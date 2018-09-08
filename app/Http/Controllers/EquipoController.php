@@ -65,14 +65,14 @@ class EquipoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required',
-            'apodo' => 'required',
-            'sitio_web' => 'required',
-            'pais' => 'required',
-            'historia' => 'required',
-            'descripcion' => 'required',
-            'nombre_estadio' => 'required',
-            'ligas_id' => 'required',
+            // 'nombre' => 'required',
+            // 'apodo' => 'required',
+            // 'sitio_web' => 'required',
+            // 'pais' => 'required',
+            // 'historia' => 'required',
+            // 'descripcion' => 'required',
+            // 'nombre_estadio' => 'required',
+            // 'ligas_id' => 'required',
         ]);
 
 

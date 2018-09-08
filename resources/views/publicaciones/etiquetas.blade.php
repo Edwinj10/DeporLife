@@ -1,5 +1,5 @@
 
-<ul class="list-group" id="">
+<ul class="list-group" id="listar-tags">
 	@foreach ($tags as $tag)
 
 	<label>

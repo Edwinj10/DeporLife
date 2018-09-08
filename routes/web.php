@@ -25,13 +25,13 @@ Route::get('/listalletiqueta/{page?}', 'EtiquetaController@listall');
 Route::get('/listtags/{page?}', 'EtiquetaController@listtags');
 Route::resource('/etiquetas', 'EtiquetaController');
 Route::get('/listall/{page?}', 'EquipoController@listall');
-Route::get('/team/{nombre}', 'EquipoController@show2');
+Route::get('/futbol/futbolnacional/equipos/{nombre}', 'EquipoController@show2');
 Route::resource('/equipos', 'EquipoController');
 
 
 // Web
 Route::get('futbol','FrontController@futbol');
-Route::get('futbolnacional','FrontController@futbol_nacional');
+Route::get('futbol/futbolnacional','FrontController@futbol_nacional');
 Route::get('futbolinternacional','FrontController@futbol_internacional');
 Route::get('busqueda','FrontController@busqueda');
 Route::get('galeria', 'FrontController@galeria');

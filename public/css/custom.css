@@ -304,11 +304,13 @@ a#men.dropdown-item:hover{
   
   .title-small { 
     color: #141517;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 400;
     line-height: 20px;
     margin: 2px 0 0;
     text-align: justify;
+    margin-bottom: 5px;
+    margin-top: 5px;
   }
   .title-x-small {font-size: 18px; margin: 0px;}
   .title-large a, .title-small a, .title-x-small a{color: inherit}
@@ -321,9 +323,21 @@ a#men.dropdown-item:hover{
     .loader-inner {display: table-cell; text-align: center; vertical-align: middle;}
 
   .banner-sec{float: left; width: 100%; /*background: #EBEBEB*/}
-  .card-block{padding:0 10px 10px;}
-  .card-text{margin: 0;
+  .card-block
+  {
+    padding:0 10px 10px;
+    height: 150px;
+  }
+  .card-text
+  {margin: 0;
     font-size: .9rem;
+    color: #747373;
+    text-align: justify;
+
+  }
+  p.card-text {
+    margin: 0;
+    font-size: 16px;
     color: #747373;
     text-align: justify;
   }
@@ -820,4 +834,11 @@ header{float: left; width:100%}
       li#login {
         display: none;
       }
+    }
+
+    /*jumbo equipos*/
+    div#equipos.jumbotron
+    {
+      background-color: #fff;
+      padding: 1px;
     }

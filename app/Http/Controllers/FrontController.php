@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Portada;
 use App\Publicacio;
+use App\Equipo;
 use App\Imagene;
 use Carbon\Carbon;
 use Session;
@@ -161,32 +162,22 @@ class FrontController extends Controller
         {
 
             $query=trim($request->get('searchText'));
-            $futbol=DB::table('publicacios as p')
-            ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
-            ->join('users as u', 'p.user_id', '=', 'u.id')
-            ->select('p.id', 'p.titulo', 'p.descripcion', 'p.foto','p.importante', 'p.tipo','c.categoria', 'u.name', 'p.created_at', 'p.resumen')
-            ->where('c.categoria', '=', 'Futbol')
-            ->where('p.tipo', '=', 'Nacional')
-            ->where('p.titulo','LIKE', '%'.$query.'%')
-            ->orderBy('p.id', 'desc')
+            $futbolnac=Publicacio::select('publicacios.id', 'publicacios.titulo', 'publicacios.resumen', 'publicacios.descripcion', 'publicacios.created_at', 'publicacios.tipo', 'categoris.categoria', 'publicacios.foto','publicacios.slug', 'users.name' )
+            ->join('categoris', 'publicacios.categoria_id', '=', 'categoris.id')
+            ->join('users', 'publicacios.user_id', '=', 'users.id')
+            ->where('categoris.categoria', '=', 'Futbol')
+            ->where('publicacios.tipo', '=', 'Nacional')
             ->paginate(20);
 
-            $portadas=DB::table('portadas as p')
-            ->join('categoris as c', 'p.categoria_id', '=', 'c.id')
-            ->join('users as u', 'p.user_id', '=', 'u.id')
-            ->select('p.id', 'p.titulo', 'p.descripcion', 'p.foto', 'p.created_at', 'u.name', 'c.categoria', 'p.resumen')
-            ->where('c.categoria', '=', 'Futbol')
-            ->where('p.tipo', '=', 'Nacional')
-            ->where('p.titulo','LIKE', '%'.$query.'%')
-            ->orderBy('p.id', 'desc')
-            ->paginate(20);    
+            $equipos=Equipo::select('equipos.*')
+            ->join('ligas', 'ligas.id', '=', 'equipos.ligas_id')
+            ->where('ligas.id', '=', '1')
+            ->orderBy('equipos.nombre', 'asc')
+            ->paginate(10);
 
         }
 
-        return view('deportes.futbolnacional', ["futbol"=>$futbol, "portadas"=>$portadas, "searchText"=>$query]);
-        
-        
-        
+        return view('deportes.futbolnacional', ["futbolnac"=>$futbolnac,"equipos"=>$equipos, "searchText"=>$query]);
     }
     public function futbol_internacional(Request $request)
     {
@@ -224,8 +215,8 @@ class FrontController extends Controller
     public function busqueda(Request $request)
 
     {
-     if ($request) 
-     {
+       if ($request) 
+       {
 
         $query=trim($request->get('searchText'));
         $publicaciones=DB::table('publicacios as p')

@@ -9,7 +9,7 @@
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Futbol </a>
           <div class="dropdown-menu">
             <a class="dropdown-item" id="hijos" href="/futbolinternacional">Futbol Europeo </a>
-            <a class="dropdown-item" id="hijos" href="/futbolnacional">Futbol Nacional </a>
+            <a class="dropdown-item" id="hijos" href="/futbol/futbolnacional">Futbol Nacional </a>
             <a class="dropdown-item" id="hijos" href="/futbolinternacional">Liga Primera </a>
             <a class="dropdown-item" id="hijos" href="/futbolinternacional">Liga Segunda Division </a>
             <a class="dropdown-item" id="hijos" href="/futbolinternacional">Liga Juvenil Sub 21 </a>
